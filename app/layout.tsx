@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import FloatingNav from "@/components/layout/FloatingNav"
 import Footer from "@/components/layout/Footer"
+import GlobalSearchProvider from "@/components/search/GlobalSearchProvider"
 // Uncomment the line below and comment out the line above to use the alternative footer
 // import Footer from "@/components/layout/FooterAlt"
 
@@ -47,11 +48,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${ptMono.variable} ${poppins.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="flex min-h-screen flex-col">
-            <FloatingNav />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <GlobalSearchProvider>
+            <div className="flex min-h-screen flex-col">
+              <FloatingNav />
+              <main className="flex-1">{children}</main>
+             
+            </div>
+          </GlobalSearchProvider>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -64,18 +64,18 @@ const getCategoryShortName = (category: string) => {
 // Get category color class for badges
 const getCategoryColorClass = (category: string) => {
   const colorMap: Record<string, string> = {
-    "Community DAOs": "bg-card-purple",
-    Consumer: "bg-card-green",
-    DeFi: "bg-card-blue",
-    DePIN: "bg-card-orange",
-    "Developer Infrastructure": "bg-card-coral",
-    Gaming: "bg-card-yellow",
-    Payments: "bg-card-green",
-    "Security Tools": "bg-card-blue",
-    Social: "bg-card-coral",
+    "Community DAOs": "category-community",
+    Consumer: "category-consumer",
+    DeFi: "category-defi",
+    DePIN: "category-depin",
+    "Developer Infrastructure": "category-developer",
+    Gaming: "category-gaming",
+    Payments: "category-payments",
+    "Security Tools": "category-security",
+    Social: "category-social",
   }
 
-  return `${colorMap[category] || "bg-card-blue"} text-white/80`
+  return `${colorMap[category] || "category-defi"} text-white/70`
 }
 
 export default function IdeasList({
@@ -407,7 +407,7 @@ export default function IdeasList({
                 return (
                   <Card
                     key={ideaId}
-                    className="flex flex-col group hover:shadow-xl transition-all duration-300 border bg-white"
+                    className="flex flex-col group hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-black hover:shadow-[0_0_0_1px_rgba(0,0,0,0.1)] bg-white"
                     style={{ transform: `rotate(${Math.random() * 2 - 1}deg)` }}
                   >
                     <CardHeader className="relative">
@@ -416,7 +416,8 @@ export default function IdeasList({
                           {ideaTitle}
                         </CardTitle>
                         <Badge
-                          className={`whitespace-nowrap text-xs px-2 py-0.5 ${getCategoryColorClass(ideaCategory)}`}
+                          variant="outline"
+                          className={`whitespace-nowrap text-xs px-2 py-0.5 border-0 ${getCategoryColorClass(ideaCategory)}`}
                         >
                           {getCategoryShortName(ideaCategory)}
                         </Badge>

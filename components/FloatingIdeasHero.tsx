@@ -100,9 +100,9 @@ export default function FloatingIdeasHero() {
 
       {mounted && (
         <>
-          {/* Top left card */}
+          {/* Top left card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute top-[10%] md:top-[20%] left-[5%] w-[min(250px,30%)] md:w-[min(300px,25%)] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden md:block"
+            className="absolute top-[10%] md:top-[20%] left-[5%] w-[min(250px,30%)] md:w-[min(300px,25%)] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -142,9 +142,9 @@ export default function FloatingIdeasHero() {
             </motion.div>
           </motion.div>
 
-          {/* Top right card */}
+          {/* Top right card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute top-[10%] md:top-[15%] right-[5%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden md:block"
+            className="absolute top-[10%] md:top-[15%] right-[5%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -264,9 +264,9 @@ export default function FloatingIdeasHero() {
             </div>
           )}
 
-          {/* Bottom left card */}
+          {/* Bottom left card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute bottom-[25%] md:bottom-[15%] left-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden md:block"
+            className="absolute bottom-[25%] md:bottom-[15%] left-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -306,9 +306,9 @@ export default function FloatingIdeasHero() {
             </motion.div>
           </motion.div>
 
-          {/* Bottom right card */}
+          {/* Bottom right card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute bottom-[25%] md:bottom-[20%] right-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden md:block"
+            className="absolute bottom-[25%] md:bottom-[20%] right-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -380,6 +380,127 @@ export default function FloatingIdeasHero() {
               {isLoadingRandom ? "Loading..." : "Random Idea"}
             </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Tablet version of featured ideas (visible on md to xl screens, below content) */}
+      <div className="container w-full px-4 md:px-6 mt-8 hidden md:block 2xl:hidden relative z-20">
+        {/* Tablet Hackathon Card */}
+        {isHackathonCardVisible && (
+          <motion.div
+            className="mb-6 max-w-md mx-auto"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.2,
+                duration: 0.5,
+              },
+            }}
+          >
+            <div className="relative">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setIsHackathonCardVisible(false)
+                }}
+                className="absolute top-2 right-2 z-30 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors"
+                aria-label="Dismiss hackathon card"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              <Card className="border-2 border-black bg-white shadow-md overflow-hidden relative cursor-pointer">
+                <CardContent className="p-0">
+                  <div className="flex">
+                    {/* Image */}
+                    <div className="w-1/3 relative aspect-square">
+                      <Image
+                        src="/ai-hackathon-neural-network.png"
+                        alt="AI Hackathon"
+                        width={150}
+                        height={150}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="w-2/3 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-mono uppercase tracking-wider bg-black text-white px-2 py-1 rounded-full">
+                          Hackathon
+                        </span>
+                        <motion.div
+                          className="h-2 w-2 rounded-full bg-black"
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                        />
+                      </div>
+                      <h3 className="text-lg font-mono uppercase tracking-tight mb-2 text-black">
+                        Christex AI Challenge
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3">
+                        Join innovators to solve real-world problems.
+                      </p>
+                      <Button
+                        className="bg-black text-white hover:bg-black/90 rounded-md w-full"
+                        size="sm"
+                        asChild
+                      >
+                        <Link href="/hackathons" className="flex items-center justify-center">
+                          View Details
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
+        )}
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          {STATIC_FEATURED_IDEAS.slice(0, 4).map((idea, index) => (
+            <motion.div
+              key={idea.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 0.2 * index,
+                  duration: 0.5,
+                },
+              }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 },
+              }}
+            >
+              <motion.div
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 3 + index,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              >
+                <Link href={`/ideas/${idea.slug}`} className="block cursor-pointer">
+                  <Card className={`border-none h-full shadow-lg ${idea.color}`}>
+                    <CardContent className="p-4">
+                      <div className="angled-text mb-2 text-xs uppercase">{idea.displayCategory}</div>
+                      <h3 className="text-lg font-mono uppercase tracking-tight mb-1">{idea.title}</h3>
+                      <p className="text-sm">{idea.description}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
       </div>
 

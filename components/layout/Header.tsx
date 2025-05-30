@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
-import { Menu, Search, Wifi, WifiOff } from "lucide-react"
+import { Menu, Search, Wifi, WifiOff, Command } from "lucide-react"
 import { poppins } from "@/lib/fonts"
 
 export default function Header() {
@@ -75,25 +75,25 @@ export default function Header() {
             </Link>
           ))}
 
-          <form onSubmit={handleSearch} className="relative w-64">
-            <Input
-              type="search"
-              placeholder="Search ideas..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-8 rounded-xl"
-            />
-            <Button
-              type="submit"
-              variant="ghost"
-              size="icon"
-              className="absolute right-0 top-0 h-full"
-              disabled={!searchQuery.trim()}
-            >
-              <Search className="h-4 w-4" />
-              <span className="sr-only">Search</span>
-            </Button>
-          </form>
+          {/* Global Search Trigger */}
+          <button
+            onClick={() => {
+              // Trigger the global search modal
+              const event = new KeyboardEvent('keydown', {
+                key: 'k',
+                metaKey: true,
+                bubbles: true
+              })
+              document.dispatchEvent(event)
+            }}
+            className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground bg-background border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+          >
+            <Search className="h-4 w-4" />
+            <span className="hidden sm:inline font-mono">Search...</span>
+            <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <Command className="h-3 w-3" />K
+            </kbd>
+          </button>
 
           <Button className="black-button" asChild>
             <Link href="/submit-idea">Submit An Idea</Link>
@@ -126,7 +126,7 @@ export default function Header() {
                   placeholder="Search ideas..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 rounded-xl"
+                  className="flex-1 rounded-xl font-mono"
                 />
                 <Button type="submit" variant="outline" size="icon" disabled={!searchQuery.trim()}>
                   <Search className="h-4 w-4" />

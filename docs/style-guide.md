@@ -1,33 +1,47 @@
-# Springboard Platform Style Guide
+# Springboard Style Guide
 
-## Table of Contents
-1. [Brand Identity](#brand-identity)
-2. [Color System](#color-system)
-3. [Typography](#typography)
-4. [Spacing & Layout](#spacing--layout)
-5. [Components](#components)
-6. [Animations & Interactions](#animations--interactions)
-7. [Accessibility](#accessibility)
-8. [Implementation Guidelines](#implementation-guidelines)
-
----
+This document outlines the design system and visual identity for Springboard, a digital innovation platform that serves as a control station for startup ideas and projects.
 
 ## Brand Identity
 
 ### Vision
-Springboard is a modern, approachable platform that empowers builders to discover and create Web3 projects. Our design reflects innovation, creativity, and accessibility.
+Springboard is designed as the ultimate **control station** for digital innovation - a collaborative workspace where ideas transform into reality through structured guidance, visual thinking, and community collaboration. Inspired by tools like FigJam, we create an environment that feels both professional and creatively empowering.
 
-### Design Principles
-- **Approachable**: Clean, friendly interface that welcomes all skill levels
-- **Vibrant**: Energetic colors and playful elements that inspire creativity
-- **Professional**: Polished design that builds trust and credibility
-- **Accessible**: Inclusive design that works for everyone
+### Design Philosophy
+- **Control Station Mentality**: Every interface element should feel like part of a sophisticated command center
+- **Visual Thinking First**: Prioritize diagrams, visual hierarchies, and spatial relationships
+- **Collaborative by Design**: Interfaces that naturally encourage sharing and co-creation
+- **Purposeful Minimalism**: Clean, intentional design that amplifies rather than distracts
+- **Progressive Disclosure**: Information architecture that reveals complexity gradually
 
-### Visual Style
-- Modern, clean aesthetic with subtle textures
-- Playful card rotations and floating animations
-- Professional typography with clear hierarchy
-- Warm, inviting color palette with vibrant accents
+### Brand Personality
+- **Strategic**: Thoughtful, systematic, well-planned
+- **Collaborative**: Community-driven, inclusive, supportive
+- **Empowering**: Confidence-building, capability-enhancing
+- **Innovative**: Forward-thinking, experimental, cutting-edge
+- **Reliable**: Consistent, trustworthy, dependable
+
+### Control Station Design Principles
+
+**1. Dashboard Thinking**
+- Information should be scannable at a glance
+- Key metrics and status indicators prominently displayed
+- Clear visual hierarchy with primary/secondary/tertiary information levels
+
+**2. Workspace Flexibility**
+- Modular components that can be rearranged
+- Multiple view modes (grid, list, kanban, timeline)
+- Customizable layouts that adapt to user workflows
+
+**3. Collaborative Indicators**
+- Real-time collaboration cues (who's online, recent activity)
+- Clear ownership and contribution attribution
+- Seamless handoff between individual and team work
+
+**4. Progressive Enhancement**
+- Core functionality works without advanced features
+- Power user features available but not overwhelming
+- Graceful degradation across devices and contexts
 
 ---
 

@@ -1,13 +1,12 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
   theme: {
@@ -53,39 +52,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Vibrant card colors inspired by the design
-        "card-coral": {
-          DEFAULT: "#ff7a7a",
-          foreground: "#000000",
-        },
-        "card-orange": {
-          DEFAULT: "#ff9f51",
-          foreground: "#000000",
-        },
-        "card-yellow": {
-          DEFAULT: "#ffcc00",
-          foreground: "#000000",
-        },
-        "card-green": {
-          DEFAULT: "#4caf50",
-          foreground: "#000000",
-        },
-        "card-blue": {
-          DEFAULT: "#5b7fff",
-          foreground: "#ffffff",
-        },
-        "card-purple": {
-          DEFAULT: "#b57fff",
-          foreground: "#ffffff",
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "1rem",
-        "2xl": "1.5rem",
-        "3xl": "2rem",
       },
       keyframes: {
         "accordion-down": {
@@ -101,13 +82,9 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      fontFamily: {
-        mono: ["var(--font-pt-mono)", "monospace"],
-        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+};
 
-export default config
+export default config;

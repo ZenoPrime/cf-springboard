@@ -76,6 +76,7 @@ export default function IdeaDetail({ idea, slug }: { idea: any; slug: string }) 
   const targetAudience = getField(idea, "target_audience")
   const mvpFeatures = getField(idea, "mvp_features") || []
   const difficulty = getField(idea, "difficulty")
+  const prdContent = getField(idea, "prd_content")
 
   const handleShareClick = async () => {
     try {
@@ -195,7 +196,13 @@ export default function IdeaDetail({ idea, slug }: { idea: any; slug: string }) 
 
             <TabsContent value="prd" className="mt-6">
               <div className="bg-[#faf8f3] p-6 rounded-lg">
-                <p className="text-gray-700">No detailed PRD available for this idea yet.</p>
+                {prdContent ? (
+                  <div className="text-gray-700 prose prose-sm max-w-none">
+                    <ReactMarkdown>{prdContent}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="text-gray-700">No detailed PRD available for this idea yet.</p>
+                )}
               </div>
             </TabsContent>
 

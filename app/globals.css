@@ -15,6 +15,48 @@ body {
 
 @layer base {
   :root {
+    /* Enhanced Control Station Color System */
+    --control-primary: #00C896;
+    --control-dark: #1a1a1a;
+    --control-light: #ffffff;
+    --control-surface: #f8f9fa;
+    
+    /* Background Hierarchy */
+    --bg-workspace: #f9f5f0;
+    --bg-panel: #ffffff;
+    --bg-section: #f5f5f5;
+    --bg-overlay: rgba(0, 0, 0, 0.05);
+    
+    /* Control Station Accents */
+    --accent-info: #3b82f6;
+    --accent-success: #10b981;
+    --accent-warning: #f59e0b;
+    --accent-error: #ef4444;
+    --accent-neutral: #6b7280;
+    
+    /* Project Category Colors */
+    --category-community: #8b5cf6;
+    --category-consumer: #06d6a0;
+    --category-defi: #3b82f6;
+    --category-depin: #f59e0b;
+    --category-developer: #ef4444;
+    --category-gaming: #ec4899;
+    --category-payments: #10b981;
+    --category-security: #6366f1;
+    --category-social: #f97316;
+    
+    /* Status Indicators */
+    --status-active: #10b981;
+    --status-pending: #f59e0b;
+    --status-completed: #3b82f6;
+    --status-archived: #6b7280;
+    
+    /* Interactive States */
+    --hover-lift: rgba(0, 200, 150, 0.1);
+    --focus-ring: rgba(0, 200, 150, 0.3);
+    --active-press: rgba(0, 200, 150, 0.2);
+    
+    /* Legacy Shadcn Variables (for compatibility) */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -86,9 +128,6 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
@@ -233,4 +272,343 @@ body {
   display: inline-block;
   transform: rotate(5deg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== ENHANCED CONTROL STATION COMPONENTS ===== */
+
+/* Control Station Cards */
+.control-card {
+  background: var(--bg-panel);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06);
+  border-color: var(--control-primary);
+}
+
+.control-card--active {
+  border-color: var(--control-primary);
+  box-shadow: 
+    0 0 0 1px var(--control-primary),
+    0 4px 12px rgba(0, 200, 150, 0.15);
+}
+
+.control-card--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Control Station Navigation */
+.control-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.control-nav-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.control-nav-item:hover {
+  background: var(--hover-lift);
+  color: var(--control-primary);
+}
+
+.control-nav-item--active {
+  background: var(--control-primary);
+  color: white;
+}
+
+/* Enhanced Button System */
+.btn-control-primary {
+  background: var(--control-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-control-primary:hover {
+  background: #00b085;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 200, 150, 0.3);
+}
+
+.btn-control-secondary {
+  background: transparent;
+  color: var(--control-dark);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+}
+
+.btn-control-secondary:hover {
+  background: var(--bg-section);
+  border-color: var(--control-primary);
+  color: var(--control-primary);
+}
+
+/* Control Station Input Fields */
+.control-input {
+  background: var(--bg-panel);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+}
+
+.control-input:focus {
+  outline: none;
+  border-color: var(--control-primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Search Control */
+.control-search {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+/* Control Station Animations */
+.control-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-transition-slow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Pulse Animation for Active States */
+@keyframes control-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.control-pulse {
+  animation: control-pulse 2s infinite;
+}
+
+/* Slide In Animation */
+@keyframes control-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.control-slide-in {
+  animation: control-slide-in 0.3s ease-out;
+}
+
+/* Loading States */
+.control-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.control-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 200, 150, 0.2),
+    transparent
+  );
+  animation: control-shimmer 1.5s infinite;
+}
+
+@keyframes control-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Focus Indicators */
+.control-focus-visible:focus-visible {
+  outline: 2px solid var(--control-primary);
+  outline-offset: 2px;
+}
+
+/* Section Containers */
+.control-section {
+  background: var(--bg-panel);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.control-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.control-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--control-dark);
+}
+
+.control-section-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-neutral);
+  margin-top: 0.25rem;
+}
+
+/* Enhanced Category Colors */
+.category-community {
+  background-color: var(--category-community);
+  color: white;
+}
+
+.category-consumer {
+  background-color: var(--category-consumer);
+  color: white;
+}
+
+.category-defi {
+  background-color: var(--category-defi);
+  color: white;
+}
+
+.category-depin {
+  background-color: var(--category-depin);
+  color: white;
+}
+
+.category-developer {
+  background-color: var(--category-developer);
+  color: white;
+}
+
+.category-gaming {
+  background-color: var(--category-gaming);
+  color: white;
+}
+
+.category-payments {
+  background-color: var(--category-payments);
+  color: white;
+}
+
+.category-security {
+  background-color: var(--category-security);
+  color: white;
+}
+
+.category-social {
+  background-color: var(--category-social);
+  color: white;
+}
+
+/* Status Indicators */
+.status-active {
+  color: var(--status-active);
+}
+
+.status-pending {
+  color: var(--status-pending);
+}
+
+.status-completed {
+  color: var(--status-completed);
+}
+
+.status-archived {
+  color: var(--status-archived);
+}
+
+/* Accessibility Enhancements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .control-card {
+    border-width: 2px;
+  }
+  
+  .btn-control-primary {
+    border: 2px solid var(--control-primary);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .control-transition,
+  .control-transition-fast,
+  .control-transition-slow {
+    transition: none;
+  }
+  
+  .control-pulse,
+  .control-slide-in {
+    animation: none;
+  }
+  
+  .float {
+    animation: none;
+  }
 }

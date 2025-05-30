@@ -7,15 +7,15 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import { Menu, Search } from "lucide-react"
+import { Menu, Search, Command } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
 import { poppins } from "@/lib/fonts"
+// No need for search provider import since we'll trigger the global search directly
 
 export default function FloatingNav() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
 
   const navigation = [
     { name: "Ideas", href: "/ideas" },
@@ -38,14 +38,16 @@ export default function FloatingNav() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Handle search
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      window.location.href = `/ideas?search=${encodeURIComponent(searchQuery.trim())}`
-      setSearchQuery("")
-      setIsOpen(false)
-    }
+  // Handle search - trigger global search modal via keyboard event
+  const handleSearchClick = () => {
+    // Simulate Cmd+K to trigger the global search modal
+    const event = new KeyboardEvent('keydown', {
+      key: 'k',
+      metaKey: true,
+      bubbles: true
+    })
+    document.dispatchEvent(event)
+    setIsOpen(false)
   }
 
   return (
@@ -86,25 +88,20 @@ export default function FloatingNav() {
 
         {/* Desktop Search and CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <form onSubmit={handleSearch} className="relative w-48">
-            <Input
-              type="search"
-              placeholder="Search ideas..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-8 rounded-full border-gray-200 bg-white text-black placeholder:text-gray-500"
-            />
-            <Button
-              type="submit"
-              variant="ghost"
-              size="icon"
-              className="absolute right-0 top-0 h-full text-gray-700"
-              disabled={!searchQuery.trim()}
-            >
-              <Search className="h-4 w-4" />
-              <span className="sr-only">Search</span>
-            </Button>
-          </form>
+          <Button
+            onClick={handleSearchClick}
+            variant="outline"
+            className="relative w-48 justify-start rounded-full border-gray-200 bg-white text-gray-500 hover:text-black"
+          >
+            <Search className="h-4 w-4 mr-2" />
+            <span>Search...</span>
+            <div className="ml-auto flex items-center gap-1">
+              <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                <Command className="h-3 w-3" />
+                K
+              </kbd>
+            </div>
+          </Button>
         </div>
 
         {/* Mobile Navigation */}
@@ -112,7 +109,7 @@ export default function FloatingNav() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setIsOpen(true)}
+            onClick={handleSearchClick}
             aria-label="Search"
             className="text-gray-700"
           >
@@ -127,24 +124,22 @@ export default function FloatingNav() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <form onSubmit={handleSearch} className="flex gap-2 mt-8 mb-4">
-                <Input
-                  type="search"
-                  placeholder="Search ideas..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 rounded-xl bg-white text-black placeholder:text-gray-500"
-                />
+              <div className="mt-8 mb-4">
                 <Button
-                  type="submit"
+                  onClick={handleSearchClick}
                   variant="outline"
-                  size="icon"
-                  disabled={!searchQuery.trim()}
-                  className="text-gray-700"
+                  className="w-full justify-start rounded-xl bg-white text-gray-500 hover:text-black"
                 >
-                  <Search className="h-4 w-4" />
+                  <Search className="h-4 w-4 mr-2" />
+                  <span>Search...</span>
+                  <div className="ml-auto flex items-center gap-1">
+                    <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                      <Command className="h-3 w-3" />
+                      K
+                    </kbd>
+                  </div>
                 </Button>
-              </form>
+              </div>
               <nav className="flex flex-col gap-4">
                 {navigation.map((item) => (
                   <Link

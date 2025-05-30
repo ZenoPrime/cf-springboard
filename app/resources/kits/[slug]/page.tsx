@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, use } from "react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -12,13 +12,14 @@ import { KitSectionCard } from "@/components/builder-kits/KitSection"
 import { KitProgress } from "@/components/builder-kits/KitProgress"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default function BuilderKitPage({ params }: PageProps) {
-  const kit = getBuilderKitBySlug(params.slug)
+  const { slug } = use(params)
+  const kit = getBuilderKitBySlug(slug)
   const [completedSections, setCompletedSections] = useState<string[]>([])
 
   if (!kit) {
