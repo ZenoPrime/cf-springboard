@@ -18,7 +18,7 @@ export default function HackathonTeaser() {
   const daysRemaining = calculateDaysRemaining()
 
   return (
-    <section className="py-16 bg-[#F0EBE5]">
+    <section className="py-16 bg-[#F0EBE5] hidden md:block">
       <div className="container px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div

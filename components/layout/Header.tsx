@@ -86,10 +86,10 @@ export default function Header() {
               })
               document.dispatchEvent(event)
             }}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground bg-background border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground bg-background border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <Search className="h-4 w-4" />
-            <span className="hidden sm:inline font-mono">Search...</span>
+            <span className="hidden sm:inline font-mono truncate">Search...</span>
             <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
               <Command className="h-3 w-3" />K
             </kbd>
@@ -121,10 +121,10 @@ export default function Header() {
               <form onSubmit={handleSearch} className="flex gap-2 mt-8 mb-4">
                 <Input
                   type="search"
-                  placeholder="Search ideas..."
+                  placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 rounded-xl font-mono"
+                  className="flex-1 rounded-xl font-mono px-4"
                 />
                 <Button type="submit" variant="outline" size="icon" disabled={!searchQuery.trim()}>
                   <Search className="h-4 w-4" />

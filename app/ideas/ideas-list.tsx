@@ -261,10 +261,10 @@ export default function IdeasList({
               <div className="flex gap-2">
                 <Input
                   type="search"
-                  placeholder="Search ideas..."
+                  placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 border-gray-200 bg-white text-black placeholder:text-gray-500"
+                  className="flex-1 border-gray-200 bg-white text-black placeholder:text-gray-500 px-4"
                 />
                 <Button type="submit" className="bg-black text-white hover:bg-black/90" size="icon">
                   <Search className="h-4 w-4" />

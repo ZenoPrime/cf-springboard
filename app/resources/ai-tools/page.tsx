@@ -178,8 +178,8 @@ export default function AiToolsPage({
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                     <Input
                       type="search"
-                      placeholder="Search for tools by name or description..."
-                      className="pl-10 bg-white text-black border-gray-300 focus:border-black transition-colors placeholder:text-gray-500"
+                      placeholder="Search tools..."
+                      className="pl-10 pr-4 bg-white text-black border-gray-300 focus:border-black transition-colors placeholder:text-gray-500"
                       value={searchInput}
                       onChange={(e) => setSearchInput(e.target.value)}
                     />

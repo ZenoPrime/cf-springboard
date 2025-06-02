@@ -102,7 +102,7 @@ export default function FloatingIdeasHero() {
         <>
           {/* Top left card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute top-[10%] md:top-[20%] left-[5%] w-[min(250px,30%)] md:w-[min(300px,25%)] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
+            className="absolute top-[10%] md:top-[20%] left-[5%] w-[min(250px,30%)] md:w-[min(300px,25%)] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 3xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -144,7 +144,7 @@ export default function FloatingIdeasHero() {
 
           {/* Top right card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute top-[10%] md:top-[15%] right-[5%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
+            className="absolute top-[10%] md:top-[15%] right-[5%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 3xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -266,7 +266,7 @@ export default function FloatingIdeasHero() {
 
           {/* Bottom left card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute bottom-[25%] md:bottom-[15%] left-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
+            className="absolute bottom-[25%] md:bottom-[15%] left-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 3xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -308,7 +308,7 @@ export default function FloatingIdeasHero() {
 
           {/* Bottom right card - only visible on large screens (>1550px) */}
           <motion.div
-            className="absolute bottom-[25%] md:bottom-[20%] right-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 2xl:block"
+            className="absolute bottom-[25%] md:bottom-[20%] right-[8%] w-[250px] md:w-[300px] z-30 opacity-90 hover:opacity-100 transition-all duration-500 hover:scale-110 hidden 3xl:block"
             initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: 1,
@@ -383,242 +383,7 @@ export default function FloatingIdeasHero() {
         </div>
       </div>
 
-      {/* Tablet version of featured ideas (visible on md to xl screens, below content) */}
-      <div className="container w-full px-4 md:px-6 mt-8 hidden md:block 2xl:hidden relative z-20">
-        {/* Tablet Hackathon Card */}
-        {isHackathonCardVisible && (
-          <motion.div
-            className="mb-6 max-w-md mx-auto"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 0.2,
-                duration: 0.5,
-              },
-            }}
-          >
-            <div className="relative">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsHackathonCardVisible(false)
-                }}
-                className="absolute top-2 right-2 z-30 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors"
-                aria-label="Dismiss hackathon card"
-              >
-                <X className="h-4 w-4" />
-              </button>
 
-              <Card className="border-2 border-black bg-white shadow-md overflow-hidden relative cursor-pointer">
-                <CardContent className="p-0">
-                  <div className="flex">
-                    {/* Image */}
-                    <div className="w-1/3 relative aspect-square">
-                      <Image
-                        src="/ai-hackathon-neural-network.png"
-                        alt="AI Hackathon"
-                        width={150}
-                        height={150}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="w-2/3 p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-mono uppercase tracking-wider bg-black text-white px-2 py-1 rounded-full">
-                          Hackathon
-                        </span>
-                        <motion.div
-                          className="h-2 w-2 rounded-full bg-black"
-                          animate={{ opacity: [0.4, 1, 0.4] }}
-                          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                        />
-                      </div>
-                      <h3 className="text-lg font-mono uppercase tracking-tight mb-2 text-black">
-                        Christex AI Challenge
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-3">
-                        Join innovators to solve real-world problems.
-                      </p>
-                      <Button
-                        className="bg-black text-white hover:bg-black/90 rounded-md w-full"
-                        size="sm"
-                        asChild
-                      >
-                        <Link href="/hackathons" className="flex items-center justify-center">
-                          View Details
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </motion.div>
-        )}
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {STATIC_FEATURED_IDEAS.slice(0, 4).map((idea, index) => (
-            <motion.div
-              key={idea.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.2 * index,
-                  duration: 0.5,
-                },
-              }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <motion.div
-                animate={{
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 3 + index,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <Link href={`/ideas/${idea.slug}`} className="block cursor-pointer">
-                  <Card className={`border-none h-full shadow-lg ${idea.color}`}>
-                    <CardContent className="p-4">
-                      <div className="angled-text mb-2 text-xs uppercase">{idea.displayCategory}</div>
-                      <h3 className="text-lg font-mono uppercase tracking-tight mb-1">{idea.title}</h3>
-                      <p className="text-sm">{idea.description}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Mobile version of featured ideas (visible only on small screens) */}
-      <div className="container w-full px-4 mt-8 md:hidden relative z-20">
-        {/* Mobile Hackathon Card */}
-        {isHackathonCardVisible && (
-          <motion.div
-            className="mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 0.2,
-                duration: 0.5,
-              },
-            }}
-          >
-            <div className="relative">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsHackathonCardVisible(false)
-                }}
-                className="absolute top-1 right-1 z-30 w-5 h-5 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors text-xs"
-                aria-label="Dismiss hackathon card"
-              >
-                <X className="h-3 w-3" />
-              </button>
-
-              <Card className="border-2 border-black bg-white shadow-md overflow-hidden relative cursor-pointer">
-                <CardContent className="p-0">
-                  <div className="flex">
-                    {/* Image - 1:1 ratio */}
-                    <div className="w-1/3 relative aspect-square">
-                      <Image
-                        src="/ai-hackathon-neural-network.png"
-                        alt="AI Hackathon"
-                        width={120}
-                        height={120}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="w-2/3 p-3">
-                      <div className="flex items-center gap-1 mb-1">
-                        <span className="text-[10px] font-mono uppercase tracking-wider bg-black text-white px-1.5 py-0.5 rounded-full">
-                          Hackathon
-                        </span>
-                        <motion.div
-                          className="h-1.5 w-1.5 rounded-full bg-black"
-                          animate={{ opacity: [0.4, 1, 0.4] }}
-                          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                        />
-                      </div>
-                      <h3 className="text-sm font-mono uppercase tracking-tight mb-1 text-black line-clamp-1">
-                        Christex AI Challenge
-                      </h3>
-                      <Button
-                        className="bg-black text-white hover:bg-black/90 rounded-md mt-1 w-full"
-                        size="sm"
-                        asChild
-                      >
-                        <Link href="/hackathons" className="flex items-center justify-center">
-                          View Details
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </motion.div>
-        )}
-
-        <div className="grid grid-cols-2 gap-3">
-          {STATIC_FEATURED_IDEAS.slice(0, 4).map((idea, index) => (
-            <motion.div
-              key={idea.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.2 * index,
-                  duration: 0.5,
-                },
-              }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <motion.div
-                animate={{
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 3 + index,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <Link href={`/ideas/${idea.slug}`} className="block cursor-pointer">
-                  <Card className={`border-none h-full ${idea.color}`}>
-                    <CardContent className="p-3">
-                      <div className="text-xs font-mono uppercase tracking-wider mb-1">{idea.displayCategory}</div>
-                      <h3 className="text-sm font-mono uppercase tracking-tight line-clamp-2">{idea.title}</h3>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
     </section>
   )
 }
