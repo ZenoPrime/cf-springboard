@@ -95,9 +95,7 @@ export default function Header() {
             </kbd>
           </button>
 
-          <Button className="black-button" asChild>
-            <Link href="/submit-idea">Submit An Idea</Link>
-          </Button>
+
 
           {/* Online/Offline indicator */}
           {isOnline ? (
@@ -143,11 +141,7 @@ export default function Header() {
                     {item.name}
                   </Link>
                 ))}
-                <Button className="black-button mt-4 w-full" asChild>
-                  <Link href="/submit-idea" onClick={() => setIsOpen(false)}>
-                    Submit An Idea
-                  </Link>
-                </Button>
+
               </nav>
 
               {/* Online/Offline indicator */}

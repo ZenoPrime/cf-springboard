@@ -23,12 +23,20 @@ const getField = (item: any, field: string) => {
 // Helper function to get category name from the lookup field
 const getCategoryName = (item: any): string => {
   // Try multiple possible field names for category
+  // Since data is flattened from Airtable, check direct properties first
   const categoryName =
+    item["name (from category)"] ||
+    item["category"] ||
     getField(item, "name (from category)") ||
     getField(item, "category") ||
     (getField(item, "category") && typeof getField(item, "category") === "object"
       ? getField(item, "category")[0]
       : null)
+
+  // Handle array case for lookup fields
+  if (Array.isArray(categoryName)) {
+    return categoryName[0] || "Uncategorized"
+  }
 
   return categoryName || "Uncategorized"
 }
@@ -114,9 +122,9 @@ export default function IdeasList({
   // Filter ideas based on all criteria
   const filteredIdeas = initialIdeas.filter((idea) => {
     const ideaCategory = getCategoryName(idea)
-    const ideaDifficulty = getField(idea, "difficulty")
-    const ideaTitle = getField(idea, "title") || ""
-    const ideaDescription = getField(idea, "description") || ""
+    const ideaDifficulty = idea.difficulty || getField(idea, "difficulty")
+    const ideaTitle = idea.title || getField(idea, "title") || ""
+    const ideaDescription = idea.description || getField(idea, "description") || ""
 
     // Debug logging (remove in production)
     if (selectedCategories.length > 0 || selectedDifficulties.length > 0) {
@@ -126,6 +134,7 @@ export default function IdeasList({
         difficulty: ideaDifficulty,
         selectedCategories,
         selectedDifficulties,
+        rawIdea: idea, // Add raw idea for debugging
       })
     }
 
@@ -398,11 +407,11 @@ export default function IdeasList({
             ) : filteredIdeas.length > 0 ? (
               filteredIdeas.map((idea) => {
                 const ideaId = idea.id
-                const ideaSlug = getField(idea, "slug")
-                const ideaTitle = getField(idea, "title")
-                const ideaDescription = getField(idea, "description")
+                const ideaSlug = idea.slug || getField(idea, "slug")
+                const ideaTitle = idea.title || getField(idea, "title")
+                const ideaDescription = idea.description || getField(idea, "description")
                 const ideaCategory = getCategoryName(idea)
-                const ideaDifficulty = getField(idea, "difficulty")
+                const ideaDifficulty = idea.difficulty || getField(idea, "difficulty")
 
                 return (
                   <Card
@@ -462,11 +471,7 @@ export default function IdeasList({
             )}
           </div>
 
-          <div className="flex justify-center mt-8">
-            <Button asChild variant="outline">
-              <Link href="/submit-idea">Have an Idea? Submit it Here!</Link>
-            </Button>
-          </div>
+
         </div>
       </div>
     </>

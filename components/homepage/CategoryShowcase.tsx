@@ -103,7 +103,7 @@ export default function CategoryShowcase() {
         >
           <Button asChild className="bg-black text-white hover:bg-gray-800 font-mono uppercase">
             <Link href="/ideas">
-              View All 200+ Ideas
+              View All 25+ Ideas
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

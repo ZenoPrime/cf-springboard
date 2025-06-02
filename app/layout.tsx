@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   title: "Springboard - Web3 Project Ideas",
   description: "Discover your next Web3 project idea",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/Frame-736.ico",
+    shortcut: "/icons/Frame-736.ico",
+    apple: "/icons/Frame-736.ico",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

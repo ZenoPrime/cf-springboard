@@ -109,7 +109,7 @@ export default function BuilderKits() {
           viewport={{ once: true }}
           className="flex justify-center"
         >
-          <Button asChild className="bg-white text-black hover:bg-gray-100 border border-gray-200 font-mono uppercase">
+          <Button asChild className="bg-black text-white hover:bg-gray-800 font-mono uppercase">
             <Link href="/resources/kits">
               Discover All Builder Kits
               <ArrowRight className="ml-2 h-4 w-4" />

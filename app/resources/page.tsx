@@ -493,9 +493,7 @@ export default function ResourcesPage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button variant="outline" className="border-gray-600 text-white hover:bg-gray-800 font-mono" asChild>
-              <Link href="/submit-idea">Submit Your Idea</Link>
-            </Button>
+
           </div>
         </section>
       </div>

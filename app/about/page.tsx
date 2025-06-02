@@ -359,15 +359,7 @@ export default function AboutPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-lg border p-4 bg-[#faf8f3]">
-                      <h3 className="font-semibold text-black mb-2">Submit Ideas</h3>
-                      <p className="text-sm text-gray-700 mb-3">
-                        Have a great project idea? Share it with the community and help other builders get started.
-                      </p>
-                      <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                        <Link href="/submit-idea">Submit an Idea</Link>
-                      </Button>
-                    </div>
+
 
                     <div className="rounded-lg border p-4 bg-[#faf8f3]">
                       <h3 className="font-semibold text-black mb-2">Join Discord</h3>
