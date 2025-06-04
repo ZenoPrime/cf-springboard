@@ -399,7 +399,7 @@ export default function IdeasList({
                 return (
                   <Card
                     key={ideaId}
-                    className="flex flex-col group hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-black hover:shadow-[0_0_0_1px_rgba(0,0,0,0.1)] bg-white"
+                    className="flex flex-col group hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-black bg-white"
                     style={{ transform: `rotate(${Math.random() * 2 - 1}deg)` }}
                   >
                     <CardHeader className="relative">

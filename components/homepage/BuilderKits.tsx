@@ -2,123 +2,91 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Clock, Zap, Palette, Brain } from "lucide-react"
-import { motion } from "framer-motion"
+import { ArrowRight, Clock } from "lucide-react"
 
 const builderKits = [
   {
-    title: "Launch Your MVP in 7 Days",
-    outcome: "Get a fully functional minimum viable product ready for user testing",
-    icon: <Zap className="h-6 w-6 text-yellow-600" />,
-    time: "7 days",
-    tools: ["v0.dev", "ChatGPT", "Bubble.io"],
-    color: "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200",
-    link: "/resources/kits/mvp-launch",
+    title: "Complete Branding Kit",
+    outcome: "Professional brand package ready for deployment",
+    icon: "🎨",
+    time: "6-8 hours",
+    tools: ["ChatGPT", "Perplexity AI", "Ideogram AI"],
+    color: "from-pink-500 to-rose-600",
+    link: "/builder-kits/complete-branding-kit"
   },
   {
-    title: "AI Content Creation Starter Kit",
-    outcome: "Automate your content workflow with AI-powered tools and templates",
-    icon: <Brain className="h-6 w-6 text-purple-600" />,
-    time: "3 days",
-    tools: ["ChatGPT", "DALL·E 3", "Copy.ai"],
-    color: "bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200",
-    link: "/resources/kits/ai-content-creation",
+    title: "AI Research & Validation Kit",
+    outcome: "Comprehensive market research and validated project direction",
+    icon: "🔍",
+    time: "2-3 hours",
+    tools: ["Perplexity AI", "ChatGPT"],
+    color: "from-blue-500 to-purple-600",
+    link: "/builder-kits/ai-research-validation"
   },
   {
-    title: "Brand Identity Builder",
-    outcome: "Create a complete brand identity with logo, colors, and style guide",
-    icon: <Palette className="h-6 w-6 text-blue-600" />,
-    time: "5 days",
-    tools: ["Adobe Firefly", "Canva", "Kittl"],
-    color: "bg-gradient-to-br from-blue-50 to-green-50 border-blue-200",
-    link: "/resources/kits/brand-identity",
-  },
+    title: "AI-Powered Design System Kit",
+    outcome: "Complete design system with components and visual guidelines",
+    icon: "🎯",
+    time: "3-4 hours",
+    tools: ["Khroma", "ChatGPT"],
+    color: "from-green-500 to-emerald-600",
+    link: "/builder-kits/ai-powered-design-system"
+  }
 ]
 
 export default function BuilderKits() {
   return (
-    <section className="py-16 bg-[#F9F5F0]">
-      <div className="container px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold tracking-tighter text-black font-mono uppercase mb-4">
-            Build Smarter with Our Builder Kits
+    <section className="py-20 bg-[#F9F5F0]">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold tracking-tight text-black mb-4">
+            BUILD SMARTER WITH OUR BUILDER KITS
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Follow our outcome-oriented kits with step-by-step guidance to bring your projects to life.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-10 items-stretch auto-rows-fr">
+        <div className="grid gap-8 md:grid-cols-3 mb-12">
           {builderKits.map((kit, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="h-full"
-            >
-              <Card className={`h-full border ${kit.color} hover:shadow-md transition-all duration-300`}>
-                <CardContent className="p-6 h-full flex flex-col min-h-0">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-full bg-white">{kit.icon}</div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-gray-500" />
-                      <span className="text-xs font-mono text-gray-500">{kit.time}</span>
-                    </div>
-                  </div>
+            <div key={index} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="text-2xl">{kit.icon}</div>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <Clock className="h-4 w-4" />
+                  <span>{kit.time}</span>
+                </div>
+              </div>
 
-                  <h3 className="text-xl font-mono uppercase tracking-tight mb-2 text-black">{kit.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">{kit.title}</h3>
+              <p className="text-gray-600 mb-4 text-sm leading-relaxed">{kit.outcome}</p>
 
-                  <p className="text-gray-600 mb-4 flex-grow">{kit.outcome}</p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {kit.tools.map((tool, i) => (
+                  <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                    {tool}
+                  </span>
+                ))}
+              </div>
 
-                  <div className="mt-auto">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {kit.tools.map((tool, i) => (
-                        <Badge key={i} variant="outline" className="bg-white text-gray-600">
-                          {tool}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <Button
-                      asChild
-                      className="w-full bg-white text-black hover:bg-gray-100 border border-gray-200 font-mono uppercase"
-                    >
-                      <Link href={kit.link}>
-                        Explore This Kit
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              <Button asChild className="w-full bg-gray-900 text-white hover:bg-gray-800">
+                <Link href={kit.link}>
+                  EXPLORE THIS KIT
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-        >
-          <Button asChild className="bg-black text-white hover:bg-gray-800 font-mono uppercase">
-            <Link href="/resources/kits">
-              Discover All Builder Kits
+        <div className="text-center">
+          <Button asChild className="bg-black text-white hover:bg-gray-800 px-8 py-3">
+            <Link href="/builder-kits">
+              DISCOVER ALL BUILDER KITS
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
