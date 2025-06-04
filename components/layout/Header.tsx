@@ -52,7 +52,7 @@ export default function Header() {
   }
 
   return (
-    <header className="w-full bg-background">
+    <header className="w-full bg-white">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2">
@@ -86,7 +86,7 @@ export default function Header() {
               })
               document.dispatchEvent(event)
             }}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground bg-background border border-border rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
           >
             <Search className="h-4 w-4" />
             <span className="hidden sm:inline font-mono truncate">Search...</span>
@@ -117,7 +117,7 @@ export default function Header() {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="bg-white">
               <form onSubmit={handleSearch} className="flex gap-2 mt-8 mb-4">
                 <Input
                   type="search"

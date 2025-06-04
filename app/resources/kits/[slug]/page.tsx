@@ -96,9 +96,9 @@ export default function BuilderKitPage({ params }: PageProps) {
           </div>
 
           {/* Kit Overview Cards */}
-          <div className="grid gap-6 md:grid-cols-3">
-            {/* Outcome Card */}
-            <Card className="border-2 border-gray-200 bg-white">
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Outcome Card - 60% width */}
+            <Card className="border-2 border-gray-200 bg-white md:flex-[3]">
               <CardHeader>
                 <CardTitle className="font-mono uppercase text-lg text-black flex items-center gap-2">
                   <Target className="h-5 w-5" />
@@ -110,8 +110,8 @@ export default function BuilderKitPage({ params }: PageProps) {
               </CardContent>
             </Card>
 
-            {/* Duration Card */}
-            <Card className="border-2 border-gray-200 bg-white">
+            {/* Duration Card - 20% width */}
+            <Card className="border-2 border-gray-200 bg-white md:flex-1">
               <CardHeader>
                 <CardTitle className="font-mono uppercase text-lg text-black flex items-center gap-2">
                   <Clock className="h-5 w-5" />
@@ -124,8 +124,8 @@ export default function BuilderKitPage({ params }: PageProps) {
               </CardContent>
             </Card>
 
-            {/* Tools Card */}
-            <Card className="border-2 border-gray-200 bg-white">
+            {/* Tools Card - 20% width */}
+            <Card className="border-2 border-gray-200 bg-white md:flex-1">
               <CardHeader>
                 <CardTitle className="font-mono uppercase text-lg text-black flex items-center gap-2">
                   <Zap className="h-5 w-5" />
@@ -163,7 +163,21 @@ export default function BuilderKitPage({ params }: PageProps) {
 
           {/* Start Building CTA */}
           <div className="text-center">
-            <Button size="lg" className="bg-black text-white hover:bg-black/90 font-mono text-lg px-8 py-3">
+            <Button 
+              size="lg" 
+              className="bg-black text-white hover:bg-black/90 font-mono text-lg px-8 py-3"
+              onClick={() => {
+                const firstSection = document.getElementById(`section-${kit.sections[0]?.id}`);
+                if (firstSection) {
+                  firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  // Expand the first section if it's collapsed
+                  const expandButton = firstSection.querySelector('[data-state="closed"]');
+                  if (expandButton) {
+                    (expandButton as HTMLElement).click();
+                  }
+                }
+              }}
+            >
               Start Building
               <Target className="ml-2 h-5 w-5" />
             </Button>
@@ -189,12 +203,13 @@ export default function BuilderKitPage({ params }: PageProps) {
 
           <div className="space-y-6">
             {kit.sections.map((section, index) => (
-              <KitSectionCard
-                key={section.id}
-                section={section}
-                isCompleted={completedSections.includes(section.id)}
-                onToggleComplete={() => toggleSectionComplete(section.id)}
-              />
+              <div key={section.id} id={`section-${section.id}`}>
+                <KitSectionCard
+                  section={section}
+                  isCompleted={completedSections.includes(section.id)}
+                  onToggleComplete={() => toggleSectionComplete(section.id)}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -210,19 +225,9 @@ export default function BuilderKitPage({ params }: PageProps) {
               {kit.tools_required.map((tool) => (
                 <div
                   key={tool}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200"
+                  className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200"
                 >
                   <span className="font-medium text-gray-900">{tool}</span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="border-transparent bg-transparent hover:bg-black hover:border-black group p-0 w-8 h-8 flex items-center justify-center"
-                  >
-                    <Link href={`/resources/ai-tools/${tool.toLowerCase().replace(/\s+/g, "-")}`}>
-                      <ExternalLink className="h-4 w-4 text-black group-hover:text-white" />
-                    </Link>
-                  </Button>
                 </div>
               ))}
             </div>

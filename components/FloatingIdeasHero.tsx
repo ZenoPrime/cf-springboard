@@ -240,10 +240,10 @@ export default function FloatingIdeasHero() {
                               />
                             </div>
                             <h3 className="text-lg font-mono uppercase tracking-tight mb-1 text-black">
-                              Christex AI Hackathon: DaVinci Challenge
+                              Christex Foundation VibeShift Hackathon
                             </h3>
                             <p className="text-sm text-gray-700 mb-3">
-                              Join innovators to build AI-powered solutions that solve real-world problems. June 4-6,
+                              Unleash AI, Reimagine Projects! A 3-day intensive event where participants leverage AI tools. June 4-6,
                               2025.
                             </p>
                           </div>

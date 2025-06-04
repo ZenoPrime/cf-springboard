@@ -43,18 +43,16 @@ export async function getIdeas(
 
 export async function getIdeaBySlug(slug: string) {
   try {
-    console.log("🔍 Fetching idea with slug:", slug)
-    const records = await fetchRecordsWithFilter("ideas", `{slug}='${slug}'`)
-    console.log("📊 Records found:", records.length)
-
-    if (records.length > 0) {
-      console.log("✅ Idea found:", records[0].title || records[0].fields?.title)
-      console.log("📝 Full record:", JSON.stringify(records[0], null, 2))
-      return records[0]
-    } else {
-      console.log("❌ No idea found with slug:", slug)
-      return null
-    }
+    // Fetching idea with slug
+  const records = await fetchFilteredRecords('Ideas', `{slug} = '${slug}'`)
+  
+  if (records.length > 0) {
+    // Idea found and returned
+    return records[0]
+  } else {
+    // No idea found with slug
+    return null
+  }
   } catch (error) {
     console.error("❌ Error fetching idea by slug:", error)
     return null

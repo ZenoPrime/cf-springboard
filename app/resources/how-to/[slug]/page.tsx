@@ -74,7 +74,7 @@ async function fetchData() {
     .select('*')
   
   if (error) console.error('Error fetching data:', error)
-  else console.log('Data:', data)
+        // Data fetched successfully
 }
 \`\`\`
 
@@ -91,7 +91,7 @@ async function signUp(email, password) {
   })
   
   if (error) console.error('Error signing up:', error)
-  else console.log('User signed up:', user)
+        // User signed up successfully
 }
 
 // Sign in
@@ -102,7 +102,7 @@ async function signIn(email, password) {
   })
   
   if (error) console.error('Error signing in:', error)
-  else console.log('User signed in:', user)
+        // User signed in successfully
 }
 
 // Sign out
@@ -110,7 +110,7 @@ async function signOut() {
   const { error } = await supabase.auth.signOut()
   
   if (error) console.error('Error signing out:', error)
-  else console.log('User signed out')
+        // User signed out successfully
 }
 \`\`\`
 

@@ -366,8 +366,10 @@ export default function AboutPage() {
                       <p className="text-sm text-gray-700 mb-3">
                         Connect with other builders, get help with your projects, and participate in community events.
                       </p>
-                      <Button variant="outline" className="w-full border-gray-300">
-                        Join Discord Community
+                      <Button variant="outline" className="w-full border-gray-300" asChild>
+                        <Link href="https://discord.gg/DeYcW49vQuestions?" target="_blank" rel="noopener noreferrer">
+                          Join Discord Community
+                        </Link>
                       </Button>
                     </div>
 
@@ -517,18 +519,27 @@ export default function AboutPage() {
                   Have questions about Springboard or want to learn more about the Christex Foundation?
                 </p>
                 <Button variant="outline" className="border-gray-300">
-                  <Link href="mailto:hello@christex.org">Contact Us</Link>
+                  <Link href="mailto:hello@christex.foundation">Contact Us</Link>
                 </Button>
               </div>
 
               <div>
-                <h3 className="font-semibold mb-2 text-black">Partnership Opportunities</h3>
+                <h3 className="font-semibold mb-2 text-black">Follow Us</h3>
                 <p className="text-sm text-gray-700 mb-3">
-                  Interested in partnering with us or sponsoring our hackathons and events?
+                  Stay connected with our community and get the latest updates.
                 </p>
-                <Button variant="outline" className="border-gray-300">
-                  <Link href="mailto:partnerships@christex.org">Partner With Us</Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" className="border-gray-300" asChild>
+                    <Link href="https://discord.gg/DeYcW49vQuestions?" target="_blank" rel="noopener noreferrer">
+                      Discord
+                    </Link>
+                  </Button>
+                  <Button variant="outline" className="border-gray-300" asChild>
+                    <Link href="https://linktr.ee/christexfndn" target="_blank" rel="noopener noreferrer">
+                      Linktree
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </CardContent>

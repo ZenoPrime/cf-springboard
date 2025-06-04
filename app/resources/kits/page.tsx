@@ -22,6 +22,7 @@ import {
   Grid3X3,
   List,
 } from "lucide-react"
+import { getAllBuilderKits } from "@/lib/builder-kits-data"
 
 export default function BuilderKitsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -29,312 +30,88 @@ export default function BuilderKitsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [selectedDifficulty, setSelectedDifficulty] = useState("all")
 
-  // All Builder Kits data (now includes the 8 new AI-focused kits)
-  const allBuilderKits = [
-    {
-      id: "complete-branding-kit",
-      title: "Complete Branding Kit",
-      description: "Build a professional brand identity from strategy to visual assets in one weekend.",
-      outcome: "Professional brand package ready for launch",
-      difficulty: "Beginner",
-      duration: "4-6 hours",
-      sections: 3,
-      tools: 5,
-      prompts: 12,
-      category: "branding",
-      icon: <Palette className="h-8 w-8" />,
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600",
-      deliverables: [
-        "Brand strategy document",
-        "Logo and visual assets",
-        "Brand voice guidelines",
-        "Social media templates",
-      ],
-      tags: ["branding", "design", "strategy"],
-      featured: true,
-    },
-    {
-      id: "ai-research-validation",
-      title: "AI Research & Validation Kit",
-      description: "Validate your hackathon idea and understand your market using AI-powered research tools.",
-      outcome: "Comprehensive market research and validated project direction",
-      difficulty: "Beginner",
-      duration: "2-3 hours",
-      sections: 4,
-      tools: 4,
-      prompts: 8,
-      category: "research",
-      icon: <Search className="h-8 w-8" />,
-      iconBg: "bg-blue-100",
-      iconColor: "text-blue-600",
-      deliverables: [
-        "Market research report",
-        "User persona profiles",
-        "Competitive analysis",
-        "Problem validation summary",
-      ],
-      tags: ["ai-tools", "hackathon", "research", "validation"],
-      featured: true,
-    },
-    {
-      id: "ai-powered-design-system",
-      title: "AI-Powered Design System Kit",
-      description: "Create a professional design system and visual identity using AI design tools.",
-      outcome: "Complete design system with components, colors, and visual guidelines",
-      difficulty: "Beginner",
-      duration: "3-4 hours",
-      sections: 4,
-      tools: 5,
-      prompts: 12,
-      category: "design",
-      icon: <Palette className="h-8 w-8" />,
-      iconBg: "bg-pink-100",
-      iconColor: "text-pink-600",
-      deliverables: [
-        "Color palette and typography system",
-        "Component library",
-        "Icon set and illustrations",
-        "Design guidelines document",
-      ],
-      tags: ["ai-tools", "design", "design-system", "ui-components"],
-      featured: true,
-    },
-    {
-      id: "ai-powered-rapid-prototype",
-      title: "AI-Powered Rapid Prototype Kit",
-      description: "Build a functional prototype quickly using AI coding and development tools.",
-      outcome: "Working prototype with core features and professional UI",
-      difficulty: "Intermediate",
-      duration: "4-6 hours",
-      sections: 4,
-      tools: 5,
-      prompts: 16,
-      category: "development",
-      icon: <Rocket className="h-8 w-8" />,
-      iconBg: "bg-green-100",
-      iconColor: "text-green-600",
-      deliverables: [
-        "Functional web application",
-        "Core feature implementation",
-        "Responsive UI components",
-        "Basic data management",
-      ],
-      tags: ["ai-tools", "development", "prototyping", "rapid-development"],
-      featured: true,
-    },
-    {
-      id: "ai-content-copy-generation",
-      title: "AI Content & Copy Generation Kit",
-      description: "Generate compelling copy, content, and documentation for your project using AI writing tools.",
-      outcome: "Complete content package including copy, documentation, and marketing materials",
-      difficulty: "Beginner",
-      duration: "2-3 hours",
-      sections: 4,
-      tools: 4,
-      prompts: 12,
-      category: "content",
-      icon: <PenTool className="h-8 w-8" />,
-      iconBg: "bg-yellow-100",
-      iconColor: "text-yellow-600",
-      deliverables: ["Landing page copy", "Product descriptions", "User documentation", "Marketing materials"],
-      tags: ["ai-tools", "content", "copywriting", "documentation"],
-      featured: false,
-    },
-    {
-      id: "ai-enhanced-demo-visualization",
-      title: "AI-Enhanced Demo & Visualization Kit",
-      description: "Create stunning demos, visualizations, and presentation materials using AI design tools.",
-      outcome: "Professional demo materials and interactive visualizations",
-      difficulty: "Intermediate",
-      duration: "3-4 hours",
-      sections: 4,
-      tools: 5,
-      prompts: 14,
-      category: "presentation",
-      icon: <Target className="h-8 w-8" />,
-      iconBg: "bg-indigo-100",
-      iconColor: "text-indigo-600",
-      deliverables: [
-        "Interactive demo interface",
-        "Data visualizations",
-        "Demo video walkthrough",
-        "Presentation graphics",
-      ],
-      tags: ["ai-tools", "demo", "visualization", "presentation"],
-      featured: false,
-    },
-    {
-      id: "ai-assisted-pitch-master",
-      title: "AI-Assisted Pitch Master Kit",
-      description: "Create compelling pitch presentations and demo scripts using AI presentation tools.",
-      outcome: "Professional pitch deck and presentation materials ready for demo day",
-      difficulty: "Beginner",
-      duration: "2-3 hours",
-      sections: 4,
-      tools: 4,
-      prompts: 10,
-      category: "presentation",
-      icon: <Sparkles className="h-8 w-8" />,
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600",
-      deliverables: ["Complete pitch deck", "Demo script and timing", "Q&A preparation guide", "Presentation assets"],
-      tags: ["ai-tools", "pitch", "presentation", "demo-day"],
-      featured: false,
-    },
-    {
-      id: "social-buzz-marketing",
-      title: "Social Buzz & Marketing Kit",
-      description: "Generate social media buzz and marketing materials for your hackathon project launch.",
-      outcome: "Complete social media strategy and marketing materials for project promotion",
-      difficulty: "Beginner",
-      duration: "2-3 hours",
-      sections: 4,
-      tools: 4,
-      prompts: 12,
-      category: "marketing",
-      icon: <Zap className="h-8 w-8" />,
-      iconBg: "bg-orange-100",
-      iconColor: "text-orange-600",
-      deliverables: [
-        "Social media content calendar",
-        "Launch announcement materials",
-        "Community engagement strategy",
-        "Press release template",
-      ],
-      tags: ["ai-tools", "social-media", "marketing", "launch"],
-      featured: false,
-    },
-    {
-      id: "team-productivity-collaboration",
-      title: "Team Productivity & Collaboration Kit",
-      description: "Optimize team collaboration and productivity using AI-powered project management tools.",
-      outcome: "Streamlined team workflow and collaboration system",
-      difficulty: "Beginner",
-      duration: "1-2 hours",
-      sections: 4,
-      tools: 4,
-      prompts: 8,
-      category: "productivity",
-      icon: <CheckCircle2 className="h-8 w-8" />,
-      iconBg: "bg-teal-100",
-      iconColor: "text-teal-600",
-      deliverables: [
-        "Project management setup",
-        "Team communication guidelines",
-        "Task tracking system",
-        "Progress reporting framework",
-      ],
-      tags: ["ai-tools", "productivity", "collaboration", "project-management"],
-      featured: false,
-    },
-    // Keep the existing non-AI kits
-    {
-      id: "no-code-mvp-launch",
-      title: "No-Code MVP Launch",
-      description: "Launch a functional product in 7 days using no-code tools and AI assistance.",
-      outcome: "Market-ready MVP with user feedback system",
-      difficulty: "Intermediate",
-      duration: "7 days",
-      sections: 4,
-      tools: 6,
-      prompts: 20,
-      category: "product",
-      icon: <Rocket className="h-8 w-8" />,
-      iconBg: "bg-blue-100",
-      iconColor: "text-blue-600",
-      deliverables: [
-        "Market-validated product concept",
-        "Functional web application",
-        "User feedback system",
-        "Launch strategy plan",
-      ],
-      tags: ["no-code", "mvp", "product"],
-      featured: true,
-    },
-    {
-      id: "ai-content-workflow",
-      title: "AI Content Workflow",
-      description: "Scale your content creation with AI tools and automated workflows.",
-      outcome: "30-day content system with automation",
-      difficulty: "Beginner",
-      duration: "3-4 hours",
-      sections: 3,
-      tools: 4,
-      prompts: 15,
-      category: "content",
-      icon: <Sparkles className="h-8 w-8" />,
-      iconBg: "bg-green-100",
-      iconColor: "text-green-600",
-      deliverables: [
-        "30-day content calendar",
-        "Automated content pipeline",
-        "Brand-consistent templates",
-        "Performance tracking system",
-      ],
-      tags: ["content", "automation", "social-media"],
-      featured: true,
-    },
-    {
-      id: "business-automation-suite",
-      title: "Business Automation Suite",
-      description: "Automate repetitive business workflows using AI and no-code tools.",
-      outcome: "Automated business processes saving 10+ hours/week",
-      difficulty: "Intermediate",
-      duration: "5-6 hours",
-      sections: 4,
-      tools: 7,
-      prompts: 18,
-      category: "automation",
-      icon: <Zap className="h-8 w-8" />,
-      iconBg: "bg-orange-100",
-      iconColor: "text-orange-600",
-      deliverables: [
-        "Customer service automation",
-        "Lead qualification system",
-        "Content distribution pipeline",
-        "Analytics dashboard",
-      ],
-      tags: ["automation", "business", "workflows"],
-      featured: false,
-    },
-    {
-      id: "personal-brand-system",
-      title: "Personal Brand System",
-      description: "Build a compelling personal brand across all digital platforms.",
-      outcome: "Complete personal brand presence",
-      difficulty: "Beginner",
-      duration: "4-5 hours",
-      sections: 3,
-      tools: 5,
-      prompts: 14,
-      category: "branding",
-      icon: <PenTool className="h-8 w-8" />,
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600",
-      deliverables: ["Personal brand strategy", "Professional headshots", "LinkedIn optimization", "Content templates"],
-      tags: ["personal-brand", "linkedin", "networking"],
-      featured: false,
-    },
-    {
-      id: "startup-pitch-deck",
-      title: "Startup Pitch Deck Builder",
-      description: "Create a compelling pitch deck that gets investor attention.",
-      outcome: "Professional pitch deck ready for investors",
-      difficulty: "Intermediate",
-      duration: "6-8 hours",
-      sections: 5,
-      tools: 6,
-      prompts: 22,
-      category: "business",
-      icon: <Target className="h-8 w-8" />,
-      iconBg: "bg-red-100",
-      iconColor: "text-red-600",
-      deliverables: ["Investor-ready pitch deck", "Financial projections", "Market analysis", "Demo script"],
-      tags: ["startup", "pitch", "investors"],
-      featured: false,
-    },
-  ]
+  // Get all builder kits from the data file
+  const allBuilderKits = getAllBuilderKits().map(kit => ({
+    id: kit.id,
+    title: kit.title,
+    description: kit.description,
+    outcome: kit.outcome_description,
+    difficulty: kit.difficulty.charAt(0).toUpperCase() + kit.difficulty.slice(1),
+    duration: kit.estimated_duration,
+    sections: kit.sections.length,
+    tools: kit.tools_required.length,
+    prompts: kit.sections.reduce((total, section) => total + section.prompts.length, 0),
+    category: kit.category.toLowerCase(),
+    icon: getCategoryIcon(kit.category),
+    iconBg: getCategoryIconBg(kit.category),
+    iconColor: getCategoryIconColor(kit.category),
+    deliverables: kit.final_deliverables,
+    tags: kit.tags,
+    featured: kit.tags.includes('ai-tools') || kit.tags.includes('featured'),
+  }))
+
+  // Helper functions for category icons
+  function getCategoryIcon(category: string) {
+    switch (category.toLowerCase()) {
+      case 'branding':
+      case 'design':
+        return <Palette className="h-8 w-8" />
+      case 'development':
+        return <Rocket className="h-8 w-8" />
+      case 'research':
+        return <Search className="h-8 w-8" />
+      case 'content':
+        return <PenTool className="h-8 w-8" />
+      case 'marketing':
+        return <Zap className="h-8 w-8" />
+      case 'pitch':
+        return <Target className="h-8 w-8" />
+      default:
+        return <Sparkles className="h-8 w-8" />
+    }
+  }
+
+  function getCategoryIconBg(category: string) {
+    switch (category.toLowerCase()) {
+      case 'branding':
+        return 'bg-purple-100'
+      case 'design':
+        return 'bg-pink-100'
+      case 'development':
+        return 'bg-green-100'
+      case 'research':
+        return 'bg-blue-100'
+      case 'content':
+        return 'bg-orange-100'
+      case 'marketing':
+        return 'bg-cyan-100'
+      case 'pitch':
+        return 'bg-yellow-100'
+      default:
+        return 'bg-indigo-100'
+    }
+  }
+
+  function getCategoryIconColor(category: string) {
+    switch (category.toLowerCase()) {
+      case 'branding':
+        return 'text-purple-600'
+      case 'design':
+        return 'text-pink-600'
+      case 'development':
+        return 'text-green-600'
+      case 'research':
+        return 'text-blue-600'
+      case 'content':
+        return 'text-orange-600'
+      case 'marketing':
+        return 'text-cyan-600'
+      case 'pitch':
+        return 'text-yellow-600'
+      default:
+        return 'text-indigo-600'
+    }
+  }
 
   // Filter kits based on search and filters
   const filteredKits = allBuilderKits.filter((kit) => {
@@ -492,7 +269,7 @@ export default function BuilderKitsPage() {
             <Card
               key={kit.id}
               className={`group hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-black bg-white ${
-                viewMode === "list" ? "flex flex-row" : ""
+                viewMode === "list" ? "flex flex-row" : "flex flex-col min-h-[450px]"
               }`}
             >
               <CardHeader className={viewMode === "list" ? "flex-shrink-0 w-48" : ""}>
@@ -502,7 +279,7 @@ export default function BuilderKitsPage() {
                   >
                     {viewMode === "list" ? <div className="scale-75">{kit.icon}</div> : kit.icon}
                   </div>
-                  <Badge className={`font-mono text-xs ${getDifficultyColor(kit.difficulty)}`}>{kit.difficulty}</Badge>
+                  <Badge className={`font-mono text-xs hover:bg-inherit ${getDifficultyColor(kit.difficulty)}`}>{kit.difficulty}</Badge>
                 </div>
 
                 <CardTitle
@@ -513,9 +290,9 @@ export default function BuilderKitsPage() {
                 <CardDescription className="text-gray-600 text-sm">{kit.description}</CardDescription>
               </CardHeader>
 
-              <CardContent className={`space-y-4 ${viewMode === "list" ? "flex-1 flex flex-col justify-between" : ""}`}>
+              <CardContent className={`flex flex-col h-full ${viewMode === "list" ? "flex-1 justify-between" : ""}`}>
                 {viewMode === "grid" && (
-                  <>
+                  <div className="flex-grow space-y-4">
                     {/* Deliverables Preview */}
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h4 className="font-mono uppercase text-sm font-semibold text-black mb-3 flex items-center gap-2">
@@ -534,8 +311,13 @@ export default function BuilderKitsPage() {
                         )}
                       </ul>
                     </div>
+                  </div>
+                )}
 
-                    {/* Tags */}
+                {/* Bottom section that hugs the bottom */}
+                <div className="mt-auto space-y-4 pt-6">
+                  {viewMode === "grid" && (
+                    /* Tags */
                     <div className="flex flex-wrap gap-2">
                       {kit.tags.slice(0, 3).map((tag) => (
                         <Badge
@@ -547,36 +329,36 @@ export default function BuilderKitsPage() {
                         </Badge>
                       ))}
                     </div>
-                  </>
-                )}
+                  )}
 
-                {/* Stats */}
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <Clock className="h-4 w-4" />
-                      <span className="font-mono">{kit.duration}</span>
+                  {/* Stats */}
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1 text-gray-600">
+                        <Clock className="h-4 w-4" />
+                        <span className="font-mono">{kit.duration}</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-gray-600">
+                        <Zap className="h-4 w-4" />
+                        <span className="font-mono">{kit.tools} tools</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <Zap className="h-4 w-4" />
-                      <span className="font-mono">{kit.tools} tools</span>
-                    </div>
+                    <Badge variant="outline" className="bg-gray-100 text-gray-700 border-gray-200 font-mono text-xs">
+                      {kit.prompts} prompts
+                    </Badge>
                   </div>
-                  <Badge variant="outline" className="bg-gray-100 text-gray-700 border-gray-200 font-mono text-xs">
-                    {kit.prompts} prompts
-                  </Badge>
-                </div>
 
-                {/* CTA */}
-                <Button
-                  asChild
-                  className="w-full bg-black text-white hover:bg-black/90 group-hover:scale-105 transition-transform font-mono"
-                >
-                  <Link href={`/resources/kits/${kit.id}`}>
-                    Start Building
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                  {/* CTA */}
+                  <Button
+                    asChild
+                    className="w-full bg-black text-white hover:bg-black/90 group-hover:scale-105 transition-transform font-mono"
+                  >
+                    <Link href={`/resources/kits/${kit.id}`}>
+                      Start Building
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

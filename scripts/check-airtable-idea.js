@@ -1,15 +1,17 @@
 import Airtable from "airtable"
 
-// Replace with your Airtable API key and Base ID
-const AIRTABLE_API_KEY = "patuIzoXh4Frorz8Y.176dce2a2d840d504a819a186fbeb5574b6a27f90a52599e33f6b35328ca5ac5"
-const AIRTABLE_BASE_ID = "appoZEsQfRUei49i9"
+const airtableApiKey = process.env.AIRTABLE_API_KEY;
+const airtableBaseId = process.env.AIRTABLE_BASE_ID;
 
-if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
-  console.error("Error: Airtable API key and Base ID must be set in environment variables.")
-  process.exit(1)
+if (!airtableApiKey || !airtableBaseId) {
+  console.error('❌ Missing required environment variables:');
+  if (!airtableApiKey) console.error('  - AIRTABLE_API_KEY');
+  if (!airtableBaseId) console.error('  - AIRTABLE_BASE_ID');
+  console.error('Please check your .env.local file.');
+  process.exit(1);
 }
 
-const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID)
+const base = new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId)
 
 export default async function checkAirtableIdea(slug) {
   try {

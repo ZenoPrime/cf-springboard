@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Code, Coins, Brain, Shield } from "lucide-react"
+import { ArrowRight, Globe, Users, Brain, ShoppingBag } from "lucide-react"
 import { motion } from "framer-motion"
 
 const categories = [
@@ -16,28 +16,28 @@ const categories = [
     link: "/ideas?categories=AI",
   },
   {
-    icon: <Coins className="h-6 w-6 text-orange-600" />,
-    name: "DeFi & Web3",
-    description: "Discover blockchain-based financial applications and decentralized platforms.",
-    color: "border-orange-400 hover:border-orange-600",
-    textColor: "text-orange-700 group-hover:bg-orange-100",
-    link: "/ideas?categories=DeFi",
-  },
-  {
-    icon: <Code className="h-6 w-6 text-blue-600" />,
-    name: "Developer Tools",
-    description: "Build tools that make developers more productive and efficient.",
+    icon: <Globe className="h-6 w-6 text-blue-600" />,
+    name: "Web Applications",
+    description: "Discover web-based solutions for productivity, collaboration, and business needs.",
     color: "border-blue-400 hover:border-blue-600",
     textColor: "text-blue-700 group-hover:bg-blue-100",
-    link: "/ideas?categories=Developer%20Infrastructure",
+    link: "/ideas?categories=Web%20App",
   },
   {
-    icon: <Shield className="h-6 w-6 text-green-600" />,
-    name: "Security & Privacy",
-    description: "Create solutions that protect data and enhance digital security.",
+    icon: <ShoppingBag className="h-6 w-6 text-green-600" />,
+    name: "Consumer",
+    description: "Build consumer-focused applications and services that enhance daily life.",
     color: "border-green-400 hover:border-green-600",
     textColor: "text-green-700 group-hover:bg-green-100",
-    link: "/ideas?categories=Security%20Tools",
+    link: "/ideas?categories=Consumer",
+  },
+  {
+    icon: <Users className="h-6 w-6 text-orange-600" />,
+    name: "Social",
+    description: "Create social platforms and community-driven applications.",
+    color: "border-orange-400 hover:border-orange-600",
+    textColor: "text-orange-700 group-hover:bg-orange-100",
+    link: "/ideas?categories=Social",
   },
 ]
 

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { getAllBuilderKits } from "@/lib/builder-kits-data"
 import {
   ArrowRight,
   CheckCircle2,
@@ -21,142 +22,105 @@ import {
   Video,
   Code2,
   Mic,
+  Users,
+  BarChart3,
+  Presentation,
+  Settings,
 } from "lucide-react"
 
 export default function ResourcesPage() {
   const [selectedOutcome, setSelectedOutcome] = useState("all")
 
-  // Featured Builder Kits data
-  const builderKits = [
-    {
-      id: "complete-branding-kit",
-      title: "Complete Branding Kit",
-      description: "Build a professional brand identity from strategy to visual assets in one weekend.",
-      outcome: "Professional brand package ready for launch",
-      difficulty: "Beginner",
-      duration: "4-6 hours",
-      sections: 3,
-      tools: 5,
-      prompts: 12,
-      category: "branding",
-      icon: <Palette className="h-8 w-8" />,
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600",
-      deliverables: [
-        "Brand strategy document",
-        "Logo and visual assets",
-        "Brand voice guidelines",
-        "Social media templates",
-      ],
-      tags: ["branding", "design", "strategy"],
-      featured: true,
-    },
-    {
-      id: "no-code-mvp-launch",
-      title: "No-Code MVP Launch",
-      description: "Launch a functional product in 7 days using no-code tools and AI assistance.",
-      outcome: "Market-ready MVP with user feedback system",
-      difficulty: "Intermediate",
-      duration: "7 days",
-      sections: 4,
-      tools: 6,
-      prompts: 20,
-      category: "mvp",
-      icon: <Rocket className="h-8 w-8" />,
-      iconBg: "bg-blue-100",
-      iconColor: "text-blue-600",
-      deliverables: [
-        "Market-validated product concept",
-        "Functional web application",
-        "User feedback system",
-        "Launch strategy plan",
-      ],
-      tags: ["no-code", "mvp", "product"],
-      featured: true,
-    },
-    {
-      id: "ai-content-workflow",
-      title: "AI Content Workflow",
-      description: "Scale your content creation with AI tools and automated workflows.",
-      outcome: "30-day content system with automation",
-      difficulty: "Beginner",
-      duration: "3-4 hours",
-      sections: 3,
-      tools: 4,
-      prompts: 15,
-      category: "content",
-      icon: <Sparkles className="h-8 w-8" />,
-      iconBg: "bg-green-100",
-      iconColor: "text-green-600",
-      deliverables: [
-        "30-day content calendar",
-        "Automated content pipeline",
-        "Brand-consistent templates",
-        "Performance tracking system",
-      ],
-      tags: ["content", "automation", "social-media"],
-      featured: true,
-    },
-    {
-      id: "business-automation-suite",
-      title: "Business Automation Suite",
-      description: "Automate repetitive business workflows using AI and no-code tools.",
-      outcome: "Automated business processes saving 10+ hours/week",
-      difficulty: "Intermediate",
-      duration: "5-6 hours",
-      sections: 4,
-      tools: 7,
-      prompts: 18,
-      category: "automation",
-      icon: <Zap className="h-8 w-8" />,
-      iconBg: "bg-orange-100",
-      iconColor: "text-orange-600",
-      deliverables: [
-        "Customer service automation",
-        "Lead qualification system",
-        "Content distribution pipeline",
-        "Analytics dashboard",
-      ],
-      tags: ["automation", "business", "workflows"],
-      featured: false,
-    },
-    {
-      id: "personal-brand-system",
-      title: "Personal Brand System",
-      description: "Build a compelling personal brand across all digital platforms.",
-      outcome: "Complete personal brand presence",
-      difficulty: "Beginner",
-      duration: "4-5 hours",
-      sections: 3,
-      tools: 5,
-      prompts: 14,
-      category: "branding",
-      icon: <PenTool className="h-8 w-8" />,
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600",
-      deliverables: ["Personal brand strategy", "Professional headshots", "LinkedIn optimization", "Content templates"],
-      tags: ["personal-brand", "linkedin", "networking"],
-      featured: false,
-    },
-    {
-      id: "video-marketing-system",
-      title: "Video Marketing System",
-      description: "Create professional video content for marketing and education.",
-      outcome: "Complete video marketing workflow",
-      difficulty: "Intermediate",
-      duration: "6-8 hours",
-      sections: 4,
-      tools: 6,
-      prompts: 16,
-      category: "content",
-      icon: <Video className="h-8 w-8" />,
-      iconBg: "bg-green-100",
-      iconColor: "text-green-600",
-      deliverables: ["Video content strategy", "Production templates", "Editing workflows", "Distribution system"],
-      tags: ["video", "marketing", "content"],
-      featured: false,
-    },
-  ]
+  // Get real builder kits data
+  const realBuilderKits = getAllBuilderKits()
+
+  // Transform real data to match UI format
+  const builderKits = realBuilderKits.map((kit) => {
+    // Map categories to icons and colors
+    const getKitIcon = (category: string, tags: string[]) => {
+      if (category === "Branding" || tags.includes("branding")) {
+        return {
+          icon: <Palette className="h-8 w-8" />,
+          iconBg: "bg-purple-100",
+          iconColor: "text-purple-600",
+        }
+      }
+      if (category === "Development" || tags.includes("prototyping")) {
+        return {
+          icon: <Rocket className="h-8 w-8" />,
+          iconBg: "bg-blue-100",
+          iconColor: "text-blue-600",
+        }
+      }
+      if (category === "Content" || tags.includes("content")) {
+        return {
+          icon: <Sparkles className="h-8 w-8" />,
+          iconBg: "bg-green-100",
+          iconColor: "text-green-600",
+        }
+      }
+      if (category === "Research" || tags.includes("research")) {
+        return {
+          icon: <Search className="h-8 w-8" />,
+          iconBg: "bg-yellow-100",
+          iconColor: "text-yellow-600",
+        }
+      }
+      if (category === "Design" || tags.includes("design")) {
+        return {
+          icon: <PenTool className="h-8 w-8" />,
+          iconBg: "bg-pink-100",
+          iconColor: "text-pink-600",
+        }
+      }
+      if (category === "Marketing" || tags.includes("marketing")) {
+        return {
+          icon: <BarChart3 className="h-8 w-8" />,
+          iconBg: "bg-orange-100",
+          iconColor: "text-orange-600",
+        }
+      }
+      if (category === "Presentation" || tags.includes("demo")) {
+        return {
+          icon: <Presentation className="h-8 w-8" />,
+          iconBg: "bg-indigo-100",
+          iconColor: "text-indigo-600",
+        }
+      }
+      if (category === "Productivity" || tags.includes("productivity")) {
+        return {
+          icon: <Users className="h-8 w-8" />,
+          iconBg: "bg-teal-100",
+          iconColor: "text-teal-600",
+        }
+      }
+      // Default
+      return {
+        icon: <Settings className="h-8 w-8" />,
+        iconBg: "bg-gray-100",
+        iconColor: "text-gray-600",
+      }
+    }
+
+    const iconData = getKitIcon(kit.category, kit.tags)
+    
+    return {
+      id: kit.id,
+      title: kit.title,
+      description: kit.description,
+      outcome: kit.outcome_description,
+      difficulty: kit.difficulty.charAt(0).toUpperCase() + kit.difficulty.slice(1),
+      duration: kit.estimated_duration,
+      sections: kit.sections.length,
+      tools: kit.tools_required.length,
+      prompts: kit.sections.reduce((total, section) => total + section.prompts.length, 0),
+      category: kit.category.toLowerCase(),
+      ...iconData,
+      deliverables: kit.final_deliverables,
+      tags: kit.tags,
+      featured: ["complete-branding-kit", "ai-powered-rapid-prototype", "ai-content-copy-generation"].includes(kit.id),
+    }
+  })
 
   // Outcome categories for filtering
   const outcomeCategories = [
@@ -257,7 +221,7 @@ export default function ResourcesPage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {featuredKits.map((kit) => (
+              {featuredKits.slice(0, 3).map((kit) => (
                 <Card
                   key={kit.id}
                   className="group hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-black bg-white relative overflow-hidden"
@@ -361,12 +325,12 @@ export default function ResourcesPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {allKits.map((kit) => (
+            {allKits.filter(kit => !kit.featured).slice(0, 3).map((kit) => (
               <Card
                 key={kit.id}
-                className="group hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-black bg-white"
+                className="group hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-black bg-white flex flex-col h-full"
               >
-                <CardHeader>
+                <CardHeader className="flex-shrink-0">
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div
                       className={`w-12 h-12 ${kit.iconBg} rounded-lg flex items-center justify-center ${kit.iconColor}`}
@@ -384,9 +348,12 @@ export default function ResourcesPage() {
                   <CardDescription className="text-gray-600 text-sm">{kit.description}</CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-4">
+                <CardContent className="flex flex-col flex-grow">
+                  {/* Spacer to push content to bottom */}
+                  <div className="flex-grow"></div>
+                  
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {kit.tags.slice(0, 3).map((tag) => (
                       <Badge
                         key={tag}
@@ -399,7 +366,7 @@ export default function ResourcesPage() {
                   </div>
 
                   {/* Stats */}
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-sm mb-4">
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1 text-gray-600">
                         <Clock className="h-4 w-4" />
@@ -428,8 +395,8 @@ export default function ResourcesPage() {
           </div>
         </section>
 
-        {/* AI Tools Directory - Secondary Section */}
-        <section className="bg-gray-50 rounded-xl p-8 border-2 border-gray-200">
+        {/* AI Tools Directory - Secondary Section - HIDDEN FOR NOW */}
+        {/* <section className="bg-gray-50 rounded-xl p-8 border-2 border-gray-200">
           <div className="text-center space-y-6">
             <div>
               <h2 className="text-2xl font-bold text-black font-mono uppercase tracking-tight mb-4">
@@ -441,7 +408,6 @@ export default function ResourcesPage() {
               </p>
             </div>
 
-            {/* Tool Categories Preview */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
               {[
                 { name: "Chatbots", icon: <MessageSquare className="h-5 w-5" />, category: "chatbots" },
@@ -477,25 +443,9 @@ export default function ResourcesPage() {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        {/* Call to Action */}
-        <section className="bg-black rounded-xl p-8 text-center text-white">
-          <h2 className="text-2xl font-bold font-mono uppercase tracking-tight mb-4">Ready to Start Building?</h2>
-          <p className="text-gray-300 mb-6 max-w-2xl mx-auto font-mono">
-            Choose a builder kit to get started with a complete workflow that takes you from idea to finished
-            deliverable.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-black hover:bg-gray-100 font-mono" asChild>
-              <Link href="/resources/kits">
-                Explore All Builder Kits
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
 
-          </div>
-        </section>
       </div>
     </div>
   )

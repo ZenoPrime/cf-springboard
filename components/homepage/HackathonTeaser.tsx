@@ -9,7 +9,7 @@ export default function HackathonTeaser() {
   // Calculate days remaining until June 4, 2025
   const calculateDaysRemaining = () => {
     const today = new Date()
-    const eventDate = new Date("2025-06-04")
+    const eventDate = new Date("2025-06-04T10:00:00Z")
     const diffTime = Math.abs(eventDate.getTime() - today.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     return diffDays
@@ -33,7 +33,7 @@ export default function HackathonTeaser() {
             </div>
 
             <h2 className="text-3xl font-bold tracking-tighter text-black font-mono uppercase mb-4">
-              Christex AI Hackathon: DaVinci Challenge
+              Christex Foundation VibeShift Hackathon
             </h2>
 
             <div className="flex items-center gap-2 mb-4">
@@ -42,8 +42,7 @@ export default function HackathonTeaser() {
             </div>
 
             <p className="text-gray-700 mb-6">
-              Join innovators from around the world to build AI solutions that address real-world challenges. Compete
-              for prizes, connect with mentors, and showcase your skills in this 3-day virtual event.
+              Unleash AI, Reimagine Projects! A 3-day intensive event where participants leverage AI tools to springboard new and existing project ideas.
             </p>
 
             <Button asChild className="bg-black text-white hover:bg-gray-800 font-mono uppercase">

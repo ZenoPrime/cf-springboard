@@ -32,27 +32,25 @@ const getCategoryClass = (category: string) => {
 }
 
 const getCategoryColorClass = (categoryName: string) => {
-  // Fallback to name-based mapping
+  // Updated color mapping with proper category colors
   const colorMap: Record<string, string> = {
-    "Community DAOs": "bg-card-purple text-white/80",
-    Consumer: "bg-card-green text-white/80",
-    DeFi: "bg-card-blue text-white/80",
-    DePIN: "bg-card-orange text-white/80",
-    "Developer Infrastructure": "bg-card-coral text-white/80",
-    Gaming: "bg-card-yellow text-white/80",
-    Payments: "bg-card-green text-white/80",
-    "Security Tools": "bg-card-blue text-white/80",
-    Social: "bg-card-coral text-white/80",
+    "Community DAOs": "bg-purple-600 text-white",
+    Consumer: "bg-green-600 text-white",
+    DeFi: "bg-blue-600 text-white",
+    DePIN: "bg-orange-600 text-white",
+    "Developer Infrastructure": "bg-red-600 text-white",
+    Payments: "bg-emerald-600 text-white",
+    Social: "bg-pink-600 text-white",
   }
 
-  return colorMap[categoryName] || "bg-gray-100 text-white/80"
+  return colorMap[categoryName] || "bg-gray-600 text-white"
 }
 
 export default function IdeaDetail({ idea, slug }: { idea: any; slug: string }) {
   const [activeTab, setActiveTab] = useState("overview")
 
   // Simple rendering without complex effects
-  console.log("Rendering IdeaDetail component")
+  // Rendering IdeaDetail component
 
   if (!idea) {
     return (
@@ -197,8 +195,78 @@ export default function IdeaDetail({ idea, slug }: { idea: any; slug: string }) 
             <TabsContent value="prd" className="mt-6">
               <div className="bg-[#faf8f3] p-6 rounded-lg">
                 {prdContent ? (
-                  <div className="text-gray-700 prose prose-sm max-w-none">
-                    <ReactMarkdown>{prdContent}</ReactMarkdown>
+                  <div className="text-gray-700 prose prose-lg max-w-none">
+                    <ReactMarkdown
+                      components={{
+                        h1: ({ children }) => (
+                          <h1 className="text-2xl font-bold font-mono uppercase tracking-tight mb-6 mt-8 first:mt-0 text-black border-b border-gray-200 pb-2">
+                            {children}
+                          </h1>
+                        ),
+                        h2: ({ children }) => (
+                          <h2 className="text-xl font-semibold font-mono uppercase tracking-tight mb-4 mt-6 text-black">
+                            {children}
+                          </h2>
+                        ),
+                        h3: ({ children }) => (
+                          <h3 className="text-lg font-medium font-mono uppercase tracking-tight mb-3 mt-5 text-gray-800">
+                            {children}
+                          </h3>
+                        ),
+                        h4: ({ children }) => (
+                          <h4 className="text-base font-medium mb-2 mt-4 text-gray-800">
+                            {children}
+                          </h4>
+                        ),
+                        p: ({ children }) => (
+                          <p className="mb-4 leading-relaxed text-gray-700">
+                            {children}
+                          </p>
+                        ),
+                        ul: ({ children }) => (
+                          <ul className="mb-4 space-y-2 list-disc list-inside text-gray-700">
+                            {children}
+                          </ul>
+                        ),
+                        ol: ({ children }) => (
+                          <ol className="mb-4 space-y-2 list-decimal list-inside text-gray-700">
+                            {children}
+                          </ol>
+                        ),
+                        li: ({ children }) => (
+                          <li className="leading-relaxed">
+                            {children}
+                          </li>
+                        ),
+                        strong: ({ children }) => (
+                          <strong className="font-semibold text-black">
+                            {children}
+                          </strong>
+                        ),
+                        em: ({ children }) => (
+                          <em className="italic text-gray-600">
+                            {children}
+                          </em>
+                        ),
+                        blockquote: ({ children }) => (
+                          <blockquote className="border-l-4 border-gray-300 pl-4 my-4 italic text-gray-600">
+                            {children}
+                          </blockquote>
+                        ),
+                        code: ({ children }) => (
+                          <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-gray-800">
+                            {children}
+                          </code>
+                        ),
+                        pre: ({ children }) => (
+                          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto my-4">
+                            {children}
+                          </pre>
+                        ),
+                      }}
+                    >
+                      {prdContent}
+                    </ReactMarkdown>
                   </div>
                 ) : (
                   <p className="text-gray-700">No detailed PRD available for this idea yet.</p>
@@ -214,7 +282,11 @@ export default function IdeaDetail({ idea, slug }: { idea: any; slug: string }) 
                   showcase your progress.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Button className="bg-black text-white hover:bg-black/90">Join Discord Community</Button>
+                  <Button className="bg-black text-white hover:bg-black/90" asChild>
+                    <Link href="https://discord.gg/DeYcW49vQuestions?" target="_blank" rel="noopener noreferrer">
+                      Join Discord Community
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </TabsContent>

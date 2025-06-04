@@ -123,7 +123,7 @@ export default function FloatingNav() {
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="w-[300px] bg-white">
               <div className="mt-8 mb-4">
                 <Button
                   onClick={handleSearchClick}

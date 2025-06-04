@@ -56,7 +56,7 @@ export default function BuilderKits() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-10">
+        <div className="grid gap-6 md:grid-cols-3 mb-10 items-stretch auto-rows-fr">
           {builderKits.map((kit, index) => (
             <motion.div
               key={index}
@@ -64,9 +64,10 @@ export default function BuilderKits() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              className="h-full"
             >
               <Card className={`h-full border ${kit.color} hover:shadow-md transition-all duration-300`}>
-                <CardContent className="p-6">
+                <CardContent className="p-6 h-full flex flex-col min-h-0">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-full bg-white">{kit.icon}</div>
                     <div className="flex items-center gap-2">
@@ -77,25 +78,27 @@ export default function BuilderKits() {
 
                   <h3 className="text-xl font-mono uppercase tracking-tight mb-2 text-black">{kit.title}</h3>
 
-                  <p className="text-gray-600 mb-4">{kit.outcome}</p>
+                  <p className="text-gray-600 mb-4 flex-grow">{kit.outcome}</p>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {kit.tools.map((tool, i) => (
-                      <Badge key={i} variant="outline" className="bg-white text-gray-600">
-                        {tool}
-                      </Badge>
-                    ))}
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {kit.tools.map((tool, i) => (
+                        <Badge key={i} variant="outline" className="bg-white text-gray-600">
+                          {tool}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    <Button
+                      asChild
+                      className="w-full bg-white text-black hover:bg-gray-100 border border-gray-200 font-mono uppercase"
+                    >
+                      <Link href={kit.link}>
+                        Explore This Kit
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
-
-                  <Button
-                    asChild
-                    className="w-full bg-white text-black hover:bg-gray-100 border border-gray-200 font-mono uppercase"
-                  >
-                    <Link href={kit.link}>
-                      Explore This Kit
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
                 </CardContent>
               </Card>
             </motion.div>

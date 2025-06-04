@@ -35,7 +35,7 @@ export default function Footer() {
             About Us
           </Link>
           <Link
-            href="mailto:contact@springboard.org"
+            href="mailto:hello@christex.foundation"
             className="text-sm font-mono uppercase tracking-wide hover:text-gray-300"
           >
             Contact

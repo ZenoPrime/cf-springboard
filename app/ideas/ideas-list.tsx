@@ -49,9 +49,7 @@ const getCategoryClass = (category: string) => {
     DeFi: "tag-defi",
     DePIN: "tag-depin",
     "Developer Infrastructure": "tag-developer",
-    Gaming: "tag-gaming",
     Payments: "tag-payments",
-    "Security Tools": "tag-security",
     Social: "tag-social",
   }
 
@@ -63,7 +61,6 @@ const getCategoryShortName = (category: string) => {
   const shortNames: Record<string, string> = {
     "Community DAOs": "Community",
     "Developer Infrastructure": "Dev Infra",
-    "Security Tools": "Security",
   }
 
   return shortNames[category] || category
@@ -77,9 +74,7 @@ const getCategoryColorClass = (category: string) => {
     DeFi: "category-defi",
     DePIN: "category-depin",
     "Developer Infrastructure": "category-developer",
-    Gaming: "category-gaming",
     Payments: "category-payments",
-    "Security Tools": "category-security",
     Social: "category-social",
   }
 
@@ -126,17 +121,7 @@ export default function IdeasList({
     const ideaTitle = idea.title || getField(idea, "title") || ""
     const ideaDescription = idea.description || getField(idea, "description") || ""
 
-    // Debug logging (remove in production)
-    if (selectedCategories.length > 0 || selectedDifficulties.length > 0) {
-      console.log("Filtering idea:", {
-        title: ideaTitle,
-        category: ideaCategory,
-        difficulty: ideaDifficulty,
-        selectedCategories,
-        selectedDifficulties,
-        rawIdea: idea, // Add raw idea for debugging
-      })
-    }
+    // Filtering logic applied
 
     const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(ideaCategory)
     const matchesDifficulty = selectedDifficulties.length === 0 || selectedDifficulties.includes(ideaDifficulty)
@@ -221,11 +206,9 @@ export default function IdeasList({
     router.push("/ideas")
   }
 
-  // Add this useEffect after the existing ones to debug data structure
+  // Ideas data processed and categories/difficulties extracted
   useEffect(() => {
-    console.log("Initial ideas data structure:", initialIdeas.slice(0, 2))
-    console.log("Available categories:", categories)
-    console.log("Available difficulties:", difficulties)
+    // Ideas data processed and categories/difficulties extracted
   }, [initialIdeas, categories, difficulties])
 
   return (

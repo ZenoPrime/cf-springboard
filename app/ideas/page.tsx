@@ -8,8 +8,7 @@ export default async function IdeasPage() {
     const ideas = await getIdeas()
     const categoriesData = await getCategories()
 
-    console.log("Fetched ideas:", ideas.length)
-    console.log("Fetched categories:", categoriesData.length)
+    // Ideas and categories fetched successfully
 
     // Extract category names for filtering - handle different data structures
     const categories = categoriesData
@@ -29,8 +28,7 @@ export default async function IdeasPage() {
       ),
     ].sort()
 
-    console.log("Processed categories:", categories)
-    console.log("Processed difficulties:", difficulties)
+    // Categories and difficulties processed
 
     return (
       <div className="container pt-24 pb-12 md:pt-28 md:pb-12">
