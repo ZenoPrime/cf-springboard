@@ -42,6 +42,8 @@ export default function HackathonsPage() {
     seconds: "00",
   })
 
+  const [isExpired, setIsExpired] = useState(false)
+
   useEffect(() => {
     const calculateTimeLeft = () => {
       const difference = targetDate.getTime() - new Date().getTime()
@@ -58,6 +60,16 @@ export default function HackathonsPage() {
           minutes: minutes.toString().padStart(2, "0"),
           seconds: seconds.toString().padStart(2, "0"),
         })
+        setIsExpired(false)
+      } else {
+        // Countdown has expired - reset to 0:00:00:00 and stop
+        setTimeLeft({
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00",
+        })
+        setIsExpired(true)
       }
     }
 
@@ -65,7 +77,7 @@ export default function HackathonsPage() {
     const timer = setInterval(calculateTimeLeft, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [targetDate])
 
   return (
     <div className="container pt-24 pb-12 md:pt-28 md:pb-12">
@@ -79,38 +91,71 @@ export default function HackathonsPage() {
         </div>
 
         {/* Countdown Timer */}
-        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 shadow-lg">
+        <Card className={`border-2 shadow-lg transition-colors duration-500 ${
+          isExpired 
+            ? 'bg-gradient-to-r from-red-50 to-gray-50 border-red-200' 
+            : 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200'
+        }`}>
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                  <Clock className="h-5 w-5 text-blue-600" />
+                <div className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                  isExpired ? 'bg-red-100' : 'bg-blue-100'
+                }`}>
+                  <Clock className={`h-5 w-5 ${
+                    isExpired ? 'text-red-600' : 'text-blue-600'
+                  }`} />
                 </div>
-                <div className="text-lg font-semibold text-black">Submission deadline in:</div>
+                <div className="text-lg font-semibold text-black">
+                  {isExpired ? 'Submission deadline has passed' : 'Submission deadline in:'}
+                </div>
               </div>
+              
               <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
-                <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm border">
-                  <span className="font-mono text-2xl font-bold text-black">{timeLeft.days}</span>
+                <div className={`flex flex-col p-3 rounded-lg shadow-sm border transition-colors ${
+                  isExpired ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'
+                }`}>
+                  <span className={`font-mono text-2xl font-bold ${
+                    isExpired ? 'text-gray-500' : 'text-black'
+                  }`}>{timeLeft.days}</span>
                   <span className="text-xs text-gray-600 font-mono uppercase">days</span>
                 </div>
-                <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm border">
-                  <span className="font-mono text-2xl font-bold text-black">{timeLeft.hours}</span>
+                <div className={`flex flex-col p-3 rounded-lg shadow-sm border transition-colors ${
+                  isExpired ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'
+                }`}>
+                  <span className={`font-mono text-2xl font-bold ${
+                    isExpired ? 'text-gray-500' : 'text-black'
+                  }`}>{timeLeft.hours}</span>
                   <span className="text-xs text-gray-600 font-mono uppercase">hours</span>
                 </div>
-                <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm border">
-                  <span className="font-mono text-2xl font-bold text-black">{timeLeft.minutes}</span>
+                <div className={`flex flex-col p-3 rounded-lg shadow-sm border transition-colors ${
+                  isExpired ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'
+                }`}>
+                  <span className={`font-mono text-2xl font-bold ${
+                    isExpired ? 'text-gray-500' : 'text-black'
+                  }`}>{timeLeft.minutes}</span>
                   <span className="text-xs text-gray-600 font-mono uppercase">min</span>
                 </div>
-                <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm border">
-                  <span className="font-mono text-2xl font-bold text-black">{timeLeft.seconds}</span>
+                <div className={`flex flex-col p-3 rounded-lg shadow-sm border transition-colors ${
+                  isExpired ? 'bg-gray-100 border-gray-300' : 'bg-white border-gray-200'
+                }`}>
+                  <span className={`font-mono text-2xl font-bold ${
+                    isExpired ? 'text-gray-500' : 'text-black'
+                  }`}>{timeLeft.seconds}</span>
                   <span className="text-xs text-gray-600 font-mono uppercase">sec</span>
                 </div>
               </div>
+              
               <Button
                 onClick={() => setShowRegistrationForm(true)}
-                className="bg-black text-white hover:bg-black/90 px-6 py-2"
+                disabled={isExpired}
+                className={`px-6 py-2 transition-all duration-300 ${
+                  isExpired 
+                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed hover:bg-gray-400' 
+                    : 'bg-black text-white hover:bg-black/90'
+                }`}
               >
-                Submit Project
+                {isExpired ? 'Submissions have closed' : 'Submit Project'}
               </Button>
             </div>
           </CardContent>
