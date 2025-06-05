@@ -22,11 +22,13 @@ export default function HackathonsPage() {
     teamName: "",
     experience: "",
     track: "",
+    submissionLink: "",
+    githubRepo: "",
   })
 
-  // Set target date to June 4th at 10am of the current year
+  // Set target date to June 6th at 11:59:59 PM of the current year
   const currentYear = new Date().getFullYear()
-  const targetDate = new Date(currentYear, 5, 4, 10, 0, 0)
+  const targetDate = new Date(currentYear, 5, 6, 23, 59, 59)
 
   // If the date has already passed this year, use next year
   if (targetDate < new Date()) {
@@ -84,7 +86,7 @@ export default function HackathonsPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                   <Clock className="h-5 w-5 text-blue-600" />
                 </div>
-                <div className="text-lg font-semibold text-black">Hackathon starts in:</div>
+                <div className="text-lg font-semibold text-black">Submission deadline in:</div>
               </div>
               <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
                 <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm border">
@@ -105,12 +107,10 @@ export default function HackathonsPage() {
                 </div>
               </div>
               <Button
+                onClick={() => setShowRegistrationForm(true)}
                 className="bg-black text-white hover:bg-black/90 px-6 py-2"
-                asChild
               >
-                <Link href="https://lu.ma/cf-AI-hackathon" target="_blank" rel="noopener noreferrer">
-                  Register Now
-                </Link>
+                Submit Project
               </Button>
             </div>
           </CardContent>
@@ -613,10 +613,10 @@ export default function HackathonsPage() {
               <CardHeader className="flex flex-row items-center justify-between border-b border-gray-200 pb-4">
                 <div>
                   <CardTitle className="text-xl font-mono uppercase tracking-tight text-black">
-                    Hackathon Registration
+                    Submit Your Hackathon Project
                   </CardTitle>
                   <CardDescription className="text-gray-600 mt-1">
-                    Join the Christex Foundation VibeShift Hackathon
+                    Submit your project for the Christex Foundation VibeShift Hackathon
                   </CardDescription>
                 </div>
                 <Button
@@ -630,11 +630,39 @@ export default function HackathonsPage() {
               </CardHeader>
               <CardContent className="p-6">
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault()
-                    // Handle form submission
-                    // Registration submitted successfully
-                    setShowRegistrationForm(false)
+                    
+                    try {
+                      const response = await fetch('/api/submit-hackathon', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          name: formData.name,
+                          email: formData.email,
+                          teamName: formData.teamName,
+                          track: formData.track,
+                          selectedIdea,
+                          experience: formData.experience,
+                          submissionLink: formData.submissionLink,
+                          githubRepo: formData.githubRepo
+                        })
+                      })
+                      
+                      if (response.ok) {
+                        // Registration submitted successfully
+                        setShowRegistrationForm(false)
+                        // You could add a success toast here
+                      } else {
+                        console.error('Failed to submit registration')
+                        // You could add an error toast here
+                      }
+                    } catch (error) {
+                      console.error('Error submitting registration:', error)
+                      // You could add an error toast here
+                    }
                   }}
                   className="space-y-6"
                 >
@@ -706,93 +734,87 @@ export default function HackathonsPage() {
                           <SelectValue placeholder="Select a challenge track" className="text-gray-500" />
                         </SelectTrigger>
                         <SelectContent className="bg-white border-2 border-black">
-                          <SelectItem value="social-good" className="text-black hover:bg-gray-100">
+                          <SelectItem value="sinai" className="text-black hover:bg-gray-100">
                             <div className="flex items-center gap-2">
                               <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                              AI for Social Good
+                              Sinai
                             </div>
                           </SelectItem>
-                          <SelectItem value="healthcare" className="text-black hover:bg-gray-100">
-                            <div className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                              Healthcare Innovation
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="education" className="text-black hover:bg-gray-100">
-                            <div className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                              Education Technology
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="open" className="text-black hover:bg-gray-100">
+                          <SelectItem value="vibe-coders" className="text-black hover:bg-gray-100">
                             <div className="flex items-center gap-2">
                               <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-                              Open Innovation
+                              Vibe Coders
                             </div>
                           </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label className="font-mono text-sm text-black uppercase tracking-wide">
-                        Project Idea from Idea Bank *
-                      </Label>
-                      <Select value={selectedIdea} onValueChange={setSelectedIdea}>
-                        <SelectTrigger className="bg-white text-black border-2 border-gray-300 focus:border-black transition-colors">
-                          <SelectValue placeholder="Choose an idea from our idea bank" className="text-gray-500" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border-2 border-black max-h-60">
-                          <SelectItem value="ai-tutor" className="text-black hover:bg-gray-100">
-                            AI-Powered Personal Tutor
-                          </SelectItem>
-                          <SelectItem value="health-monitor" className="text-black hover:bg-gray-100">
-                            Smart Health Monitoring System
-                          </SelectItem>
-                          <SelectItem value="climate-tracker" className="text-black hover:bg-gray-100">
-                            Climate Impact Tracker
-                          </SelectItem>
-                          <SelectItem value="accessibility-assistant" className="text-black hover:bg-gray-100">
-                            Accessibility Assistant
-                          </SelectItem>
-                          <SelectItem value="mental-health-companion" className="text-black hover:bg-gray-100">
-                            Mental Health Companion
-                          </SelectItem>
-                          <SelectItem value="sustainable-transport" className="text-black hover:bg-gray-100">
-                            Sustainable Transport Optimizer
-                          </SelectItem>
-                          <SelectItem value="food-waste-reducer" className="text-black hover:bg-gray-100">
-                            Food Waste Reduction Platform
-                          </SelectItem>
-                          <SelectItem value="language-bridge" className="text-black hover:bg-gray-100">
-                            Language Learning Bridge
-                          </SelectItem>
-                          <SelectItem value="elderly-care" className="text-black hover:bg-gray-100">
-                            Elderly Care Assistant
-                          </SelectItem>
-                          <SelectItem value="disaster-response" className="text-black hover:bg-gray-100">
-                            Disaster Response Coordinator
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mt-2">
-                        <p className="text-xs text-blue-800">
-                          💡 Browse our{" "}
-                          <Link
-                            href="/ideas"
-                            className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors"
-                            target="_blank"
-                          >
-                            idea bank
-                          </Link>{" "}
-                          for detailed descriptions and inspiration
-                        </p>
+                    {/* Only show idea selection for Vibe Coders track */}
+                    {formData.track === 'vibe-coders' && (
+                      <div className="space-y-2">
+                        <Label className="font-mono text-sm text-black uppercase tracking-wide">
+                          Project Idea from Idea Bank *
+                        </Label>
+                        <Select value={selectedIdea} onValueChange={setSelectedIdea}>
+                          <SelectTrigger className="bg-white text-black border-2 border-gray-300 focus:border-black transition-colors">
+                            <SelectValue placeholder="Choose an idea from our idea bank" className="text-gray-500" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border-2 border-black max-h-60">
+                            <SelectItem value="ai-powered-public-service-utility" className="text-black hover:bg-gray-100">
+                              AI Powered Public Service Utility
+                            </SelectItem>
+                            <SelectItem value="telehealth-platform-rural-women" className="text-black hover:bg-gray-100">
+                              Telehealth Platform for Rural Women
+                            </SelectItem>
+                            <SelectItem value="ai-powered-hotel-guesthouse-booking" className="text-black hover:bg-gray-100">
+                              AI-Powered Hotel & Guesthouse Booking Platform
+                            </SelectItem>
+                            <SelectItem value="blockchain-land-registry-system" className="text-black hover:bg-gray-100">
+                              Blockchain Land Registry System
+                            </SelectItem>
+                            <SelectItem value="ai-powered-pharmacy-locator" className="text-black hover:bg-gray-100">
+                              AI-Powered Pharmacy Locator Platform
+                            </SelectItem>
+                            <SelectItem value="dogood-protocol-proof-impact" className="text-black hover:bg-gray-100">
+                              DoGood Protocol - Proof of Impact Platform
+                            </SelectItem>
+                            <SelectItem value="salonlink-microloan-smart-contract" className="text-black hover:bg-gray-100">
+                              SaloneLink MicroLoan - Smart Contract Microloan Platform
+                            </SelectItem>
+                            <SelectItem value="skillproof-web3-freelancing" className="text-black hover:bg-gray-100">
+                              SkillProof - Web3 Freelancing Platform
+                            </SelectItem>
+                            <SelectItem value="blockchain-digital-identity-credit" className="text-black hover:bg-gray-100">
+                              Blockchain-Based Digital Identity and Credit Scoring Platform
+                            </SelectItem>
+                            <SelectItem value="blockchain-pension-social-security" className="text-black hover:bg-gray-100">
+                              Blockchain-Based Pension and Social Security System
+                            </SelectItem>
+                            <SelectItem value="blockchain-transportation-payment" className="text-black hover:bg-gray-100">
+                              Blockchain-Based Public Transportation Payment and Tracking System
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mt-2">
+                          <p className="text-xs text-blue-800">
+                            💡 Browse our{" "}
+                            <Link
+                              href="/ideas"
+                              className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors"
+                              target="_blank"
+                            >
+                              idea bank
+                            </Link>{" "}
+                            for detailed descriptions and inspiration
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="space-y-2">
                       <Label htmlFor="experience" className="font-mono text-sm text-black uppercase tracking-wide">
-                        AI/Development Experience
+                        Prior AI/Development Experience
                         <span className="ml-2 text-xs text-gray-500 normal-case">(Optional)</span>
                       </Label>
                       <Textarea
@@ -806,11 +828,56 @@ export default function HackathonsPage() {
                     </div>
                   </div>
 
+                  {/* Submission Details Section */}
+                  <div className="space-y-4">
+                    <h3 className="font-mono uppercase tracking-tight text-black text-sm border-b border-gray-200 pb-2">
+                      Submission Details
+                    </h3>
+
+                    <div className="grid grid-cols-1 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="submissionLink" className="font-mono text-sm text-black uppercase tracking-wide">
+                          Project Submission Link *
+                        </Label>
+                        <Input
+                          id="submissionLink"
+                          type="url"
+                          value={formData.submissionLink}
+                          onChange={(e) => setFormData({ ...formData, submissionLink: e.target.value })}
+                          className="bg-white text-black border-2 border-gray-300 focus:border-black transition-colors placeholder:text-gray-500"
+                          placeholder="https://your-project.vercel.app or v0.dev/bolt.new link"
+                          required
+                        />
+                        <p className="text-xs text-gray-600">
+                          Link to your hosted project (Vercel, Netlify, v0.dev, bolt.new, Lovable, etc.)
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="githubRepo" className="font-mono text-sm text-black uppercase tracking-wide">
+                          GitHub Repository
+                          <span className="ml-2 text-xs text-gray-500 normal-case">(Optional)</span>
+                        </Label>
+                        <Input
+                          id="githubRepo"
+                          type="url"
+                          value={formData.githubRepo}
+                          onChange={(e) => setFormData({ ...formData, githubRepo: e.target.value })}
+                          className="bg-white text-black border-2 border-gray-300 focus:border-black transition-colors placeholder:text-gray-500"
+                          placeholder="https://github.com/username/repository"
+                        />
+                        <p className="text-xs text-gray-600">
+                          Link to your project's source code repository (optional)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Form Status */}
-                  {formData.name && formData.email && formData.track && selectedIdea && (
+                  {formData.name && formData.email && formData.track && (formData.track === 'sinai' || selectedIdea) && formData.submissionLink && (
                     <div className="bg-green-50 border border-green-200 rounded-md p-3">
                       <p className="text-sm text-green-800 font-medium">
-                        ✓ Ready to register! All required fields completed.
+                        ✓ Ready to submit! All required fields completed.
                       </p>
                     </div>
                   )}
@@ -828,11 +895,11 @@ export default function HackathonsPage() {
                     <Button
                       type="submit"
                       className="flex-1 bg-black text-white hover:bg-gray-800 font-mono uppercase tracking-wide transition-colors disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
-                      disabled={!formData.name || !formData.email || !formData.track || !selectedIdea}
+                      disabled={!formData.name || !formData.email || !formData.track || !selectedIdea || !formData.submissionLink || !formData.githubRepo}
                     >
-                      {!formData.name || !formData.email || !formData.track || !selectedIdea
+                      {!formData.name || !formData.email || !formData.track || !selectedIdea || !formData.submissionLink || !formData.githubRepo
                         ? "Complete Required Fields"
-                        : "Register for Hackathon"}
+                        : "Submit Project"}
                     </Button>
                   </div>
                 </form>
