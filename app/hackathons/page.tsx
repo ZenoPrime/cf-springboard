@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from 'lucide-react'
+import { toast } from "sonner"
 
 
 // Define targetDate using UTC for timezone consistency
@@ -702,26 +703,26 @@ export default function HackathonsPage() {
 
                       if (response.ok) {
                         setShowRegistrationForm(false)
-                        // toast({
-                        //   title: "Success!",
-                        //   description: "Your hackathon project has been submitted.",
-                        // })
+                        // Reset form data
+                        setFormData({
+                          name: "",
+                          email: "",
+                          teamName: "",
+                          experience: "",
+                          track: "",
+                          submissionLink: "",
+                          githubRepo: "",
+                        })
+                        setSelectedIdea("")
+                        toast.success("Success! Your hackathon project has been submitted successfully.")
                       } else {
                         const errorData = await response.json()
                         console.error('Failed to submit registration:', errorData)
-                        // toast({
-                        //   variant: "destructive",
-                        //   title: "Submission Failed",
-                        //   description: errorData.error || "An unexpected error occurred. Please try again.",
-                        // })
+                        toast.error(errorData.error || "Submission failed. Please try again.")
                       }
                     } catch (error) {
                       console.error('Error submitting registration:', error)
-                      // toast({
-                      //   variant: "destructive",
-                      //   title: "Error",
-                      //   description: "An unexpected error occurred. Please try again.",
-                      // })
+                      toast.error("An unexpected error occurred. Please try again.")
                     }
                   }}
                   className="space-y-6"

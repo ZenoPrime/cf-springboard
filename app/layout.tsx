@@ -7,6 +7,7 @@ import FloatingNav from "@/components/layout/FloatingNav"
 import Footer from "@/components/layout/Footer"
 import GlobalSearchProvider from "@/components/search/GlobalSearchProvider"
 import StructuredData from "@/components/seo/StructuredData"
+import { Toaster } from "@/components/ui/sonner"
 
 
 // Uncomment the line below and comment out the line above to use the alternative footer
@@ -114,8 +115,8 @@ export default function RootLayout({
               <FloatingNav />
               <main className="flex-1">{children}</main>
               <Footer />
-
             </div>
+            <Toaster />
           </GlobalSearchProvider>
         </ThemeProvider>
       </body>
