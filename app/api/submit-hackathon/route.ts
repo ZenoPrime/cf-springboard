@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
       selectedIdea,
       experience,
       submissionLink,
-      githubRepo
+      githubRepo,
+      demoVideoUrl
     } = body
 
     // Validate required fields
@@ -44,7 +45,8 @@ export async function POST(request: NextRequest) {
       "Challenge Track": airtableTrack, // Use the corrected variable
       "Prior AI/Development Experience": experience || "",
       "Submission Link": submissionLink || "",
-      "GitHub Repository": githubRepo || ""
+      "GitHub Repository": githubRepo || "",
+      "Demo Video Upload": demoVideoUrl || ""
     }
 
     // Only include Project Idea for vibe-coders track

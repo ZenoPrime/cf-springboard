@@ -30,6 +30,7 @@ export default function HackathonsPage() {
     track: "",
     submissionLink: "",
     githubRepo: "",
+    demoVideoUrl: "",
   });
 
   const [timeLeft, setTimeLeft] = useState({
@@ -712,6 +713,7 @@ export default function HackathonsPage() {
                           track: "",
                           submissionLink: "",
                           githubRepo: "",
+                          demoVideoUrl: "",
                         })
                         setSelectedIdea("")
                         toast.success("Success! Your hackathon project has been submitted successfully.")
@@ -907,6 +909,24 @@ export default function HackathonsPage() {
                         />
                         <p className="text-xs text-gray-600">
                           Link to your project's source code repository (optional)
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="demoVideoUrl" className="font-mono text-sm text-black uppercase tracking-wide">
+                          Demo Video Upload
+                          <span className="ml-2 text-xs text-gray-500 normal-case">(Optional)</span>
+                        </Label>
+                        <Input
+                          id="demoVideoUrl"
+                          type="url"
+                          value={formData.demoVideoUrl}
+                          onChange={handleInputChange('demoVideoUrl')}
+                          className="bg-white text-black border-2 border-gray-300 focus:border-black transition-colors placeholder:text-gray-500"
+                          placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."
+                        />
+                        <p className="text-xs text-gray-600">
+                          Link to demo video (YouTube, Vimeo, or other video hosting platform)
                         </p>
                       </div>
                     </div>
