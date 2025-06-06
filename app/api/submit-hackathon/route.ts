@@ -33,15 +33,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Submit to Airtable
+    let airtableTrack = track;
+    if (track.toLowerCase() === 'vibe-coders') {
+      airtableTrack = 'Vibe Coders'; // Ensure correct casing
+    }
     const recordData: Record<string, string> = {
-      "Name": name,
+      "Participant Name": name,
       "Email": email,
       "Team Name": teamName || "",
-      "Challenge Track": track,
+      "Challenge Track": airtableTrack, // Use the corrected variable
       "Prior AI/Development Experience": experience || "",
-      "Project Submission Link": submissionLink || "",
-      "GitHub Repository": githubRepo || "",
-      "Submission Date": new Date().toISOString()
+      "Submission Link": submissionLink || "",
+      "GitHub Repository": githubRepo || ""
     }
 
     // Only include Project Idea for vibe-coders track

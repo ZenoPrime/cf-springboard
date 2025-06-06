@@ -6,10 +6,13 @@ export const dynamic = "force-static"
 export const revalidate = 3600 // Revalidate once per hour
 
 export default async function IdeaDetailPage({ params }: { params: { slug: string } }) {
+  // Await params according to Next.js 15 requirements
+  const { slug } = await params
+  
   // Fetching idea by slug
-  const idea = await getIdeaBySlug(params.slug)
+  const idea = await getIdeaBySlug(slug)
   
   // Idea fetched and processed
 
-  return <IdeaDetail idea={idea} slug={params.slug} />
+  return <IdeaDetail idea={idea} slug={slug} />
 }

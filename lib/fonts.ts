@@ -4,6 +4,7 @@ export const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: true
 })
 
 export const ptMono = PT_Mono({
@@ -11,6 +12,7 @@ export const ptMono = PT_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-pt-mono",
+  preload: true
 })
 
 export const poppins = Poppins({
@@ -18,4 +20,5 @@ export const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-poppins",
+  preload: true
 })

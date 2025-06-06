@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -10,13 +10,14 @@ import Link from "next/link"
 
 export default function TestHackathonIdeasPage() {
   // Set target date to June 4th at 10am of the current year
-  const currentYear = new Date().getFullYear()
-  const targetDate = new Date(currentYear, 5, 4, 10, 0, 0)
-
-  // If the date has already passed this year, use next year
-  if (targetDate < new Date()) {
-    targetDate.setFullYear(currentYear + 1)
-  }
+  const targetDate = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    const date = new Date(currentYear, 5, 4, 10, 0, 0);
+    if (date < new Date()) {
+      date.setFullYear(currentYear + 1);
+    }
+    return date;
+  }, []);
 
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
@@ -52,7 +53,7 @@ export default function TestHackathonIdeasPage() {
     const timer = setInterval(calculateTimeLeft, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [targetDate])
 
   // Hackathon-specific ideas with enhanced metadata
   const hackathonIdeas = [

@@ -10,8 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "@/components/ui/use-toast"
-import { Toaster } from "@/components/ui/toaster"
+
 
 export default function SubmitIdeaPage() {
   const router = useRouter()
@@ -45,10 +44,7 @@ export default function SubmitIdeaPage() {
       // For now, we'll simulate a successful submission
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      toast({
-        title: "Idea Submitted Successfully",
-        description: "Thank you! Your idea has been submitted for review.",
-      })
+
 
       // Reset form
       setFormData({
@@ -64,11 +60,6 @@ export default function SubmitIdeaPage() {
       // Optionally redirect after a delay
       // setTimeout(() => router.push('/ideas'), 2000)
     } catch (error) {
-      toast({
-        title: "Submission Failed",
-        description: "There was an error submitting your idea. Please try again.",
-        variant: "destructive",
-      })
     } finally {
       setIsSubmitting(false)
     }
@@ -211,7 +202,7 @@ export default function SubmitIdeaPage() {
           </form>
         </Card>
       </div>
-      <Toaster />
+
     </div>
   )
 }

@@ -7,6 +7,8 @@ import FloatingNav from "@/components/layout/FloatingNav"
 import Footer from "@/components/layout/Footer"
 import GlobalSearchProvider from "@/components/search/GlobalSearchProvider"
 import StructuredData from "@/components/seo/StructuredData"
+
+
 // Uncomment the line below and comment out the line above to use the alternative footer
 // import Footer from "@/components/layout/FooterAlt"
 
@@ -105,20 +107,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <StructuredData type="website" />
-        <StructuredData type="organization" />
-      </head>
       <body className={`${inter.variable} ${ptMono.variable} ${poppins.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <GlobalSearchProvider>
             <div className="flex min-h-screen flex-col">
               <FloatingNav />
               <main className="flex-1">{children}</main>
-             
+              <Footer />
+
             </div>
           </GlobalSearchProvider>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -20,7 +20,7 @@ const nextConfig = {
   generateEtags: true,
   experimental: {
     // optimizeCss: true, // Disabled due to critters module issue in production builds
-    optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
+    // optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react'],
   },
   async headers() {
     return [

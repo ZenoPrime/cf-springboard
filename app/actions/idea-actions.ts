@@ -44,7 +44,7 @@ export async function getIdeas(
 export async function getIdeaBySlug(slug: string) {
   try {
     // Fetching idea with slug
-  const records = await fetchFilteredRecords('Ideas', `{slug} = '${slug}'`)
+  const records = await fetchRecordsWithFilter('Ideas', `{slug} = '${slug}'`)
   
   if (records.length > 0) {
     // Idea found and returned
