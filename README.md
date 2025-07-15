@@ -25,7 +25,7 @@ Springboard is a comprehensive platform designed to accelerate Web3 innovation b
 ## ✨ Key Features
 
 ### 💡 Idea Hub
-- **200+ Project Ideas** across 9+ categories (DeFi, NFTs, DAOs, DePIN, Gaming, etc.)
+- **20+ Project Ideas** across 9+ categories (DeFi, NFTs, DAOs, DePIN, Gaming, etc.)
 - **Detailed PRDs** with technical specifications, market analysis, and implementation guides
 - **Difficulty Ratings** from Beginner to Expert
 - **Advanced Search & Filtering** by category, difficulty, and technology stack
